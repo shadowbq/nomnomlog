@@ -13,8 +13,8 @@ import (
 
 	"github.com/howbazaar/loggo"
 	"github.com/papertrail/go-tail/follower"
-	"github.com/papertrail/remote_syslog2/syslog"
-	"github.com/papertrail/remote_syslog2/utils"
+	"github.com/shadowbq/remote_syslog2/syslog"
+	"github.com/shadowbq/remote_syslog2/utils"
 )
 
 var log = loggo.GetLogger("")

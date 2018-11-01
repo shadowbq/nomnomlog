@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/papertrail/remote_syslog2/papertrail"
-	"github.com/papertrail/remote_syslog2/syslog"
+	"github.com/shadowbq/remote_syslog2/papertrail"
+	"github.com/shadowbq/remote_syslog2/syslog"
 	"github.com/stretchr/testify/assert"
 )
 

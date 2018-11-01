@@ -123,7 +123,7 @@ or add `protocol: tls` to your configuration file.
 
 By default, remote_syslog looks for a configuration in `/etc/log_files.yml`.
 
-The archive comes with a [sample config](https://github.com/papertrail/remote_syslog2/blob/master/example_config.yml). Optionally:
+The archive comes with a [sample config](https://github.com/shadowbq/remote_syslog2/blob/master/example_config.yml). Optionally:
 
     $ cp example_config.yml.example /etc/log_files.yml
 
@@ -155,7 +155,7 @@ init script or by manually killing and restarting the process. For example:
 
 ## Advanced Configuration (Optional)
 
-Here's an [advanced config](https://github.com/papertrail/remote_syslog2/blob/master/examples/log_files.yml.example.advanced) which uses all options.
+Here's an [advanced config](https://github.com/shadowbq/remote_syslog2/blob/master/examples/log_files.yml.example.advanced) which uses all options.
 
 ### Override hostname
 
@@ -341,7 +341,7 @@ Once again, confirm that remote_syslog starts and then apply this value permanen
 
 ## Reporting bugs
 
-1. See whether the issue has already been reported: <https://github.com/papertrail/remote_syslog2/issues/>
+1. See whether the issue has already been reported: <https://github.com/shadowbq/remote_syslog2/issues/>
 2. If you don't find one, create an issue with a repro case.
 
 
@@ -353,7 +353,7 @@ run:
 
     go get github.com/kardianos/govendor
     go get github.com/mitchellh/gox
-    go get github.com/papertrail/remote_syslog2
+    go get github.com/shadowbq/remote_syslog2
 
 To run tests:
 
@@ -388,10 +388,11 @@ Once you've made your great commits:
 
 [Papertrail]: http://papertrailapp.com/
 [remote_syslog]: https://github.com/papertrail/remote_syslog
-[releases]: https://github.com/papertrail/remote_syslog2/releases
+[remote_syslog2]: https://github.com/papertrail/remote_syslog2
+[release fork]: https://github.com/shadowbq/remote_syslog2/releases
 
 [govendor]: https://github.com/kardianos/govendor
 [goinstall]: http://golang.org/doc/install
 
 [fk]: http://help.github.com/forking/
-[is]: https://github.com/papertrail/remote_syslog/issues/
+[is]: https://github.com/shadowbq/remote_syslog/issues/

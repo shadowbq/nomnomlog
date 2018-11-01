@@ -12,4 +12,4 @@ cp README.md LICENSE example_config.yml $BUILDPATH
 cd $BUILDPATH/..
 rm -f remote_syslog2.tar.gz
 tar -czf remote_syslog2.tar.gz `basename $BUILDPATH`
-rm -r remote_syslog2
+#rm -r remote_syslog2

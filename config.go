@@ -13,9 +13,9 @@ import (
 	"time"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/papertrail/remote_syslog2/papertrail"
-	"github.com/papertrail/remote_syslog2/syslog"
-	"github.com/papertrail/remote_syslog2/utils"
+	"github.com/shadowbq/remote_syslog2/papertrail"
+	"github.com/shadowbq/remote_syslog2/syslog"
+	"github.com/shadowbq/remote_syslog2/utils"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
