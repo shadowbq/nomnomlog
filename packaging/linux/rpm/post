@@ -1,8 +1,8 @@
-/sbin/chkconfig --add remote_syslog
+/sbin/chkconfig --add nomnomlog
 
 if [ "$1" -gt "1" ]; then
   # Upgrade
-  /etc/init.d/remote_syslog restart
+  /etc/init.d/nomnomlog restart
 fi
 
 exit 0

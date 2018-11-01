@@ -25,10 +25,10 @@ package: $(BUILD_PAIRS)
 build: depend clean test
 	@echo
 	@echo "\033[32mBuilding ----> \033[m"
-	gox -ldflags=$(GOLDFLAGS) -os="$(X64_PLATFORMS)" -arch="amd64" -output "build/{{.OS}}/amd64/remote_syslog/remote_syslog"
-	gox -ldflags=$(GOLDFLAGS) -os="$(X86_PLATFORMS)" -arch="386" -output "build/{{.OS}}/i386/remote_syslog/remote_syslog"
-	gox -ldflags=$(GOLDFLAGS) -os="linux" -arch="arm" -output "build/linux/armhf/remote_syslog/remote_syslog"
-	gox -ldflags=$(GOLDFLAGS) -cgo -os="$(CGO_PLATFORMS)" -arch="amd64" -output "build/{{.OS}}/amd64/remote_syslog/remote_syslog"
+	gox -ldflags=$(GOLDFLAGS) -os="$(X64_PLATFORMS)" -arch="amd64" -output "build/{{.OS}}/amd64/nomnomlog/nomnomlog"
+	gox -ldflags=$(GOLDFLAGS) -os="$(X86_PLATFORMS)" -arch="386" -output "build/{{.OS}}/i386/nomnomlog/nomnomlog"
+	gox -ldflags=$(GOLDFLAGS) -os="linux" -arch="arm" -output "build/linux/armhf/nomnomlog/nomnomlog"
+	gox -ldflags=$(GOLDFLAGS) -cgo -os="$(CGO_PLATFORMS)" -arch="amd64" -output "build/{{.OS}}/amd64/nomnomlog/nomnomlog"
 
 
 clean:
@@ -100,14 +100,14 @@ $(BUILD_PAIRS): build
 	$(eval PLATFORM := $(strip $(subst /, ,$(dir $@))))
 	$(eval ARCH := $(notdir $@))
 	mkdir pkg || echo
-	cp $(BUILD_DOCS) build/$@/remote_syslog
+	cp $(BUILD_DOCS) build/$@/nomnomlog
 
 	if [ "$(PLATFORM)" = "linux" ]; then\
 		mkdir -p pkg/tmp/etc/init.d;\
 		mkdir -p pkg/tmp/usr/local/bin;\
 		cp -f example_config.yml pkg/tmp/etc/log_files.yml;\
-		cp -f packaging/linux/remote_syslog.initd pkg/tmp/etc/init.d/remote_syslog;\
-		cp -f build/$@/remote_syslog/remote_syslog pkg/tmp/usr/local/bin;\
+		cp -f packaging/linux/nomnomlog.initd pkg/tmp/etc/init.d/nomnomlog;\
+		cp -f build/$@/nomnomlog/nomnomlog pkg/tmp/usr/local/bin;\
 		(cd pkg && \
 		fpm \
 		  -s dir \
@@ -124,7 +124,7 @@ $(BUILD_PAIRS): build
 		  --before-remove ../packaging/linux/deb/prerm \
 		  --after-install ../packaging/linux/deb/postinst \
 		  --config-files etc/log_files.yml \
-		  --config-files etc/init.d/remote_syslog usr/local/bin/remote_syslog etc/log_files.yml etc/init.d/remote_syslog && \
+		  --config-files etc/init.d/nomnomlog usr/local/bin/nomnomlog etc/log_files.yml etc/init.d/nomnomlog && \
 		fpm \
 		  -s dir \
 		  -C tmp \
@@ -140,9 +140,9 @@ $(BUILD_PAIRS): build
 		  --before-remove ../packaging/linux/rpm/preun \
 		  --after-install ../packaging/linux/rpm/post \
 		  --config-files etc/log_files.yml \
-		  --config-files etc/init.d/remote_syslog \
-		  --rpm-os linux usr/local/bin/remote_syslog etc/log_files.yml etc/init.d/remote_syslog );\
+		  --config-files etc/init.d/nomnomlog \
+		  --rpm-os linux usr/local/bin/nomnomlog etc/log_files.yml etc/init.d/nomnomlog );\
 		rm -R -f pkg/tmp;\
 	fi
 
-	cd build/$@ && echo `pwd` && tar -cvzf ../../../pkg/remote_syslog_$(PLATFORM)_$(ARCH).tar.gz remote_syslog
+	cd build/$@ && echo `pwd` && tar -cvzf ../../../pkg/nomnomlog_$(PLATFORM)_$(ARCH).tar.gz nomnomlog

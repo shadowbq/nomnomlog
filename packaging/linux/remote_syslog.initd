@@ -1,25 +1,25 @@
 #!/bin/bash
 
 ### BEGIN INIT INFO
-# Provides: remote_syslog
+# Provides: nomnomlog
 # Required-Start: $network $remote_fs $syslog
 # Required-Stop: $network $remote_fs $syslog
 # Default-Start: 2 3 4 5
 # Default-Stop: 0 1 6
 # Short-Description: Start and Stop
-# Description: Runs remote_syslog
+# Description: Runs nomnomlog
 ### END INIT INFO
 
-#       /etc/init.d/remote_syslog
+#       /etc/init.d/nomnomlog
 #
-# Starts the remote_syslog daemon
+# Starts the nomnomlog daemon
 #
 # chkconfig: 345 90 5
-# description: Runs remote_syslog
+# description: Runs nomnomlog
 #
-# processname: remote_syslog
+# processname: nomnomlog
 
-prog="remote_syslog"
+prog="nomnomlog"
 config="/etc/log_files.yml"
 pid_dir="/var/run"
 
@@ -39,7 +39,7 @@ is_running(){
     if [[ $pid != "" ]]; then
       exepath=`readlink /proc/"$pid"/exe 2> /dev/null`
       exe=`basename "$exepath"`
-      if [[ $exe == "remote_syslog" ]] || [[ $exe == "remote_syslog (deleted)" ]]; then
+      if [[ $exe == "nomnomlog" ]] || [[ $exe == "nomnomlog (deleted)" ]]; then
         # Process is running
         return 0
       fi

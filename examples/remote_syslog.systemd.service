@@ -1,11 +1,11 @@
 [Unit]
-Description=remote_syslog2
-Documentation=https://github.com/shadowbq/remote_syslog2
+Description=nomnomlog
+Documentation=https://github.com/shadowbq/nomnomlog
 After=network-online.target
 
 [Service]
 ExecStartPre=/usr/bin/test -e /etc/log_files.yml
-ExecStart=/usr/local/bin/remote_syslog -D
+ExecStart=/usr/local/bin/nomnomlog -D
 Restart=always
 User=root
 Group=root

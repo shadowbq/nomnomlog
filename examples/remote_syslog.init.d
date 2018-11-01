@@ -1,25 +1,25 @@
 #!/bin/bash
 
 ### BEGIN INIT INFO
-# Provides: remote_syslog
+# Provides: nomnomlog
 # Required-Start: $network $remote_fs $syslog
 # Required-Stop: $network $remote_fs $syslog
 # Default-Start: 2 3 4 5
 # Default-Stop: 0 1 6
 # Short-Description: Start and Stop
-# Description: Runs remote_syslog
+# Description: Runs nomnomlog
 ### END INIT INFO
 
-#       /etc/init.d/remote_syslog
+#       /etc/init.d/nomnomlog
 #
-# Starts the remote_syslog daemon
+# Starts the nomnomlog daemon
 #
 # chkconfig: 345 90 5
-# description: Runs remote_syslog
+# description: Runs nomnomlog
 #
-# processname: remote_syslog
+# processname: nomnomlog
 
-prog="remote_syslog"
+prog="nomnomlog"
 config="/etc/log_files.yml"
 pid_dir="/var/run"
 

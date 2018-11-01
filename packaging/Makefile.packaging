@@ -1,6 +1,6 @@
-PACKAGE_NAME := remote_syslog2
+PACKAGE_NAME := nomnomlog
 PACKAGE_VENDOR := "Shadowbq-Fork"
 PACKAGE_LICENSE := "MIT License"
 PACKAGE_CONTACT := support@papertrailapp.com
 PACKAGE_DESCRIPTION := "Lightweight self-contained daemon for reading local files and emitting remote syslog (without using local syslog daemon)"
-PACKAGE_URL := https://github.com/shadowbq/remote_syslog2
+PACKAGE_URL := https://github.com/shadowbq/nomnomlog

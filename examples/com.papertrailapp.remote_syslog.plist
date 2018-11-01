@@ -4,7 +4,7 @@
 <plist version = "1.0">
   <dict>
     <key>Label</key>
-    <string>com.papertrailapp.remote_syslog</string>
+    <string>com.papertrailapp.nomnomlog</string>
     <key>RunAtLoad</key>
     <true/>
     <key>KeepAlive</key>
@@ -13,7 +13,7 @@
     <string>root</string>
     <key>ProgramArguments</key>
     <array>
-      <string>/usr/local/bin/remote_syslog</string>
+      <string>/usr/local/bin/nomnomlog</string>
       <string>-D</string>
     </array>
   </dict>

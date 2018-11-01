@@ -4,12 +4,12 @@ if [ "$1" != "configure" ]; then
   exit 1
 fi
 
-if [ -x "/etc/init.d/remote_syslog" ]; then
-  update-rc.d remote_syslog defaults >/dev/null
+if [ -x "/etc/init.d/nomnomlog" ]; then
+  update-rc.d nomnomlog defaults >/dev/null
  
   if [ -n "$2" ]; then
     # Upgrade
-    invoke-rc.d remote_syslog restart
+    invoke-rc.d nomnomlog restart
   fi
 fi
 

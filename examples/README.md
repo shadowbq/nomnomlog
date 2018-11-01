@@ -1,8 +1,8 @@
 # Examples
 
-## com.papertrailapp.remote_syslog.plist
+## com.papertrailapp.nomnomlog.plist
 
-This is an example Mac OS X plist file.  This file should be placed at `/Library/LaunchDaemons/com.papertrailapp.remote_syslog.plist`.
+This is an example Mac OS X plist file.  This file should be placed at `/Library/LaunchDaemons/com.papertrailapp.nomnomlog.plist`.
 
 ## log_files.yml.example
 
@@ -12,18 +12,18 @@ This is a simple configuration file example.  Use it as a template for your conf
 
 More advanced example of above.
 
-## remote_syslog.init.d
+## nomnomlog.init.d
 
-This is an init.d script.  Use this if your system uses init.d for startup scripts.  Place this file at `/etc/init.d/remote_syslog` and then run `chmod +x /etc/init.d/remote_syslog`.  To start the service, run `service remote_syslog start` and to run on startup, run `update-rc.d remote_syslog defaults`.
+This is an init.d script.  Use this if your system uses init.d for startup scripts.  Place this file at `/etc/init.d/nomnomlog` and then run `chmod +x /etc/init.d/nomnomlog`.  To start the service, run `service nomnomlog start` and to run on startup, run `update-rc.d nomnomlog defaults`.
 
-## remote_syslog.supervisor.conf
+## nomnomlog.supervisor.conf
 
 This is a supervisor configuration file.
 
-## remote_syslog.systemd.service
+## nomnomlog.systemd.service
 
-This is a systemd service configuration file.  Place this file at `/etc/systemd/system/remote_syslog.service` and then run `systemctl enable remote_syslog.service` to enable the service and `systemctl start remote_syslog.service` to start it.
+This is a systemd service configuration file.  Place this file at `/etc/systemd/system/nomnomlog.service` and then run `systemctl enable nomnomlog.service` to enable the service and `systemctl start nomnomlog.service` to start it.
 
-## remote_syslog.upstart.conf
+## nomnomlog.upstart.conf
 
-This is an upstart configuration file.  Place this file at `/etc/init/remote_syslog.conf` and then run `sudo start remote_syslog` to start the service.
+This is an upstart configuration file.  Place this file at `/etc/init/nomnomlog.conf` and then run `sudo start nomnomlog` to start the service.

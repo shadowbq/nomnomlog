@@ -5,7 +5,7 @@ if [ "$1" = "failed-upgrade" ]; then
 fi
 
 if [ "$1" = "remove" ]; then
-  /etc/init.d/remote_syslog stop
-  update-rc.d -f remote_syslog remove >/dev/null
+  /etc/init.d/nomnomlog stop
+  update-rc.d -f nomnomlog remove >/dev/null
 fi
 

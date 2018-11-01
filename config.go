@@ -13,9 +13,9 @@ import (
 	"time"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/shadowbq/remote_syslog2/papertrail"
-	"github.com/shadowbq/remote_syslog2/syslog"
-	"github.com/shadowbq/remote_syslog2/utils"
+	"github.com/shadowbq/nomnomlog/papertrail"
+	"github.com/shadowbq/nomnomlog/syslog"
+	"github.com/shadowbq/nomnomlog/utils"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
@@ -30,11 +30,11 @@ var (
 )
 
 const (
-	envPrefix         = "remote_syslog"
+	envPrefix         = "nomnomlog"
 	defaultConfigFile = "/etc/log_files.yml"
 )
 
-// The global Config object for remote_syslog2 server. "mapstructure" tags
+// The global Config object for nomnomlog server. "mapstructure" tags
 // signify the config file key names.
 type Config struct {
 	ConnectTimeout       time.Duration    `mapstructure:"connect_timeout"`
@@ -368,12 +368,12 @@ func decodeHook(from reflect.Type, to reflect.Type, data interface{}) (interface
 
 func getPidFile() string {
 	pidFiles := []string{
-		"/var/run/remote_syslog.pid",
-		os.Getenv("HOME") + "/run/remote_syslog.pid",
-		os.Getenv("HOME") + "/tmp/remote_syslog.pid",
-		os.Getenv("HOME") + "/remote_syslog.pid",
-		os.TempDir() + "/remote_syslog.pid",
-		os.Getenv("TMPDIR") + "/remote_syslog.pid",
+		"/var/run/nomnomlog.pid",
+		os.Getenv("HOME") + "/run/nomnomlog.pid",
+		os.Getenv("HOME") + "/tmp/nomnomlog.pid",
+		os.Getenv("HOME") + "/nomnomlog.pid",
+		os.TempDir() + "/nomnomlog.pid",
+		os.Getenv("TMPDIR") + "/nomnomlog.pid",
 	}
 
 	for _, f := range pidFiles {
@@ -392,7 +392,7 @@ func getPidFile() string {
 		return f
 	}
 
-	return "/tmp/remote_syslog.pid"
+	return "/tmp/nomnomlog.pid"
 }
 
 func usage() {

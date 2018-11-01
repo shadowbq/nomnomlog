@@ -23,5 +23,5 @@ _testmain.go
 
 /build/
 /pkg/
-remote_syslog
+nomnomlog
 tmp
