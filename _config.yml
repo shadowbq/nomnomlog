@@ -1,0 +1,8 @@
+title: remote_syslog2
+description: Lightweight self-contained daemon for reading local files and emitting remote syslog (without using local syslog daemon)
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-hacker
+
+gems:
+  - jekyll-mentions
