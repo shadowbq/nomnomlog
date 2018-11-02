@@ -7,7 +7,7 @@ import (
 // A Syslog Priority is a combination of Severity and Facility.
 type Priority int
 
-// Returned when looking up a non-existant facility or severity
+// Returned when looking up a non-existent facility or severity
 var ErrPriority = fmt.Errorf("Not a designated priority")
 
 // RFC5424 Severities

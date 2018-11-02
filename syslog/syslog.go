@@ -215,7 +215,7 @@ func (l *Logger) writePacket(p Packet) {
 	}
 }
 
-// writeloop writes any packets recieved on l.Packets() to the syslog server.
+// writeloop writes any packets received on l.Packets() to the syslog server.
 func (l *Logger) writeLoop() {
 	for {
 		select {
