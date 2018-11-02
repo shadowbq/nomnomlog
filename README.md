@@ -1,7 +1,5 @@
 # nomnomlog
 
-[![Download nomnomlog](http://papertrail.github.io/nomnomlog/images/download.png)][releases]
-
 nomnomlog tails one or more log files and sends syslog messages to a
 remote central syslog server. It generates packets itself, ignoring the system
 syslog daemon, so its configuration doesn't affect system-wide logging.
@@ -15,6 +13,10 @@ Uses:
 This code is tested with the hosted log management service [Papertrail]
 and should work for transmitting to any syslog server.
 
+## Nomnomlog
+
+Nomnomlog is a fork of the go-lang `remote_syslog2`. This fork is a feature fork for including different filter criteria prior to sending
+logs to the central server. 
 
 ## Installing
 
