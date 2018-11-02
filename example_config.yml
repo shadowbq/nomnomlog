@@ -1,8 +1,14 @@
 files:
   - locallog.txt
+  - tag: abc
+  path: locallog.txt
 destination:
-  host: logs.papertrailapp.com
+  host: 127.0.0.1
   port: 514
-  protocol: tls
+  protocol: udp
 exclude_patterns:
   - don't log on me
+# severity options: emerg,alert,crit,err,warn,notice,info,debug
+severity: alert
+# facility options: kern,user,mail,daemon,auth,syslog,lpr,news,uucp,cron,authpriv,ftp,ntp,audit,alert,at,local0,local1..local7
+facility: kern
