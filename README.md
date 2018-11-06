@@ -1,5 +1,13 @@
 # nomnomlog
 
+[![GitHub release](https://img.shields.io/github/release/shadowbq/nomnomlog.svg?style=for-the-badge)](https://github.com/shadowbq/nomnomlog/releases)
+[![license](https://img.shields.io/github/license/shadowbq/nomnomlog.svg?style=for-the-badge)](/LICENSE)
+[![GitHub Release Date](https://img.shields.io/github/release-date/shadowbq/nomnomlog.svg?style=for-the-badge)](https://github.com/shadowbq/nomnomlog/releases)
+[![Code](https://img.shields.io/badge/Language-Go-ff69b4.svg?style=for-the-badge)](/README.md)
+
+[![Go Report Card](https://goreportcard.com/badge/github.com/shadowbq/nomnomlog)](https://goreportcard.com/report/github.com/shadowbq/nomnomlog)
+[![Build Status](https://travis-ci.org/shadowbq/nomnomlog.svg?branch=master)](https://travis-ci.org/shadowbq/nomnomlog)
+
 nomnomlog tails one or more log files and sends syslog messages to a
 remote central syslog server. It generates packets itself, ignoring the system
 syslog daemon, so its configuration doesn't affect system-wide logging.
