@@ -1,32 +1,28 @@
 language: go
 go:
-  - "1.8"
-  - "1.10.x"
-  - "1.x"
-  - master
+- "1.8"
+- "1.10.x"
+- stable
+- master
 matrix:
   allow_failures:
-    - go: master
-    - go: "1.x"
+  - go: master
   fast_finish: true
 install:
-  - export PATH=$HOME/gopath/bin:$PATH
-  - export GO15VENDOREXPERIMENT=1
-
+- export PATH=$HOME/gopath/bin:$PATH
+- export GO15VENDOREXPERIMENT=1
 script:
-  - make test
-
-# This assumes that git tags start with "v", e.g. v0.19
+- make test
 before_deploy:
-  - PACKAGE_VERSION=${TRAVIS_TAG:1} make build
-
+- PACKAGE_VERSION=${TRAVIS_TAG:1} make build
 deploy:
   provider: releases
   skip_cleanup: true
   api_key:
-    secure: d3jdocN7D2L3I/Uwj2vIlMGId59zxi1UKxn3AsSC3WERbc9N0m781HmfJe5iD7GW7fp/os1kswb2mtGKLXluNliEOpYutOPlvtQNw8GyovNwK08aeyWm/+oxul36rLnAN81aPBAY11mKKaU0gJOv6Q79yq8ew6OY8D6UdZRyypY=
+    secure: E17JyRAaJC62LNi3+QOd4KqJ5evtx3LLNjwfQSVHYKYmlaxhRW2qUii2mRoub416pKPt6OBIbn363ZyQt5TNYbd1wIk+JeN/mY4dcDEtkEzCSVBnPO+fUVVbmtY9Paq1tqUMIJDajXZX2talVuFPqpz+rCX9X6S9mUI2IOncTZGvji9o4V8P+LXqZJVHY7quzZV4OzzYB/I5cl5+T/kOY90tLhbAaFnqsezWcZv/3qhVd9NX0c73DZgJEhNx63LYeEcyUDuJh7XYifgFQf0ZRfbkmtUhVOhrz2ti5L5lB0JW9l2agZdACzvfGfD4G94Wjkc1O9h98IMlSn7AnUY5E85kLdk3ZqlVmmRpjovFGZqFke6XP96Sk/5zkfsWhkswnW3vlybE55WbgYtzOks8Hcoh1CIHhwoshE+ZWr5KzWvwt8IwlBQKzuV7RemCm7CPmOK32tnaLtmL50ak5KQ0VxLPYD9hpGbhFeP7bHKPJgbMnCsUQepMk2J6tQX0Aq2DExlYAdaurOBmlYdEW1lIy4faahW3vms6h+hocoTFVCZidWFRrF5ZAeZUpM4SA/wPAC/Tl+3NGAup5NrQAg0ZcmYVTe28JYLk0mSE7dZghJV2StXOVspPMth8u67VyXP37b/JNUBP1b+nPYborU7KaTCaS1RFDu60S530aQWoeNw=
   file: "pkg/nomnomlog*"
   file_glob: true
   on:
     tags: true
     condition: ${TRAVIS_TAG:0:1} = "v"
+    #repo: shadowbq/nomnomlog
