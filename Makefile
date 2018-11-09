@@ -21,8 +21,10 @@ BUILD_DOCS := README.md LICENSE example_config.yml
 
 package: $(BUILD_PAIRS)
 
+reportVersion: 
+	@echo "\033[32mProduct Version $(PACKAGE_VERSION)"
 
-build: depend clean test
+build: reportVersion depend clean test
 	@echo
 	@echo "\033[32mBuilding ----> \033[m"
 	gox -ldflags=$(GOLDFLAGS) -os="$(X64_PLATFORMS)" -arch="amd64" -output "build/{{.OS}}/amd64/nomnomlog/nomnomlog"
