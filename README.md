@@ -328,6 +328,10 @@ Once again, confirm that nomnomlog starts and then apply this value permanently 
 1. See whether the issue has already been reported: <https://github.com/shadowbq/nomnomlog/issues/>
 2. If you don't find one, create an issue with a repro case.
 
+## Versions
+
+
+
 ## Development
 
 nomnomlog is written in go, and uses [govendor] to manage
@@ -348,6 +352,10 @@ To run tests:
 ## Building
 
     make
+    
+## Test in Travis or CLI
+
+    make test
 
 ### ARM support
 
