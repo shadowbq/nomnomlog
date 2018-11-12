@@ -2,7 +2,7 @@ export GO15VENDOREXPERIMENT=1
 
 include packaging/Makefile.packaging
 
-.PHONY: depend clean test build tarball
+.PHONY: reportVersion depend clean test build tarball
 .DEFAULT: build
 
 GOLDFLAGS="-X main.Version=$(PACKAGE_VERSION)"

@@ -348,8 +348,6 @@ $> go get github.com/mitchellh/gox
 $> go get github.com/shadowbq/nomnomlog
 ```
 
-
-
 ### Dependencies for distro-release
 
 Distro Release building requirements are checked in the `Makefile`
@@ -365,7 +363,7 @@ They may also include:
 ```shell
 $> make
 Product Version 0.1.0
-Checking Dependencies ----> 
+Checking Dependencies ---->
 [..sic..]
 fpm is not installed. See https://github.com/jordansissel/fpm
 ```
@@ -378,12 +376,18 @@ Change the version in the VERSION file:
 
 Build a local-release
 
-    $> ./build.sh
+```shell
+$> ./build.sh
+Building nomnomlog 0.1.0 local-release, use Makefile for distro-releases.
+
+$> ./build/nomnomlog/nomnomlog --version
+nomnomlog 0.1.0
+```
 
 Build the distro-release
 
     $> make
-    
+
 ### Test in Travis or CLI
 
     $> make test
@@ -395,6 +399,22 @@ To run tests manually:
 $> go test ./...
 # run all tests except the slower syslog reconnection tests
 $> go test -short ./...
+```
+
+### Other Targets
+
+```shell
+$> make
+        build
+        clean
+        depend
+        package
+        reportVersion
+        tarball
+        test
+        darwin/
+        linux/
+        windows/
 ```
 
 ### ARM support
@@ -413,12 +433,10 @@ Once you've made your great commits:
 5. Create a Pull Request or an [Issue][is] with a link to your branch
 6. That's it!
 
-
 ## Credits
 
 * [Github Contributions](https://github.com/shadowbq/nomnomlog/graphs/contributors)
 * [remote_syslog2](https://github.com/papertrail/remote_syslog2/graphs/contributors) original fork
-
 
 ## Reporting bugs
 
