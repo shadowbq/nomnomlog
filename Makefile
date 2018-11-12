@@ -65,33 +65,40 @@ ifndef GOPATH
 	exit 1;
 endif
 
-	type go >/dev/null 2>&1|| { \
+	@type go >/dev/null 2>&1|| { \
 	  echo "\033[1;33mGo is required to build this application\033[m"; \
 	  echo "\033[1;33mIf you are using homebrew on OSX, run\033[m"; \
-	  echo "$$ brew install go --cross-compile-all"; \
+	  echo "Recommend: $$ brew install go --cross-compile-all"; \
 	  exit 1; \
 	}
 
-	type govendor >/dev/null 2>&1|| { \
+	@type govendor >/dev/null 2>&1|| { \
 	  echo "\033[1;33mgovendor is not installed. See https://github.com/kardianos/govendor\033[m"; \
-	  echo "$$ go get -u github.com/kardianos/govendor"; \
+	  echo "Recommend: $$ go get -u github.com/kardianos/govendor"; \
 	  exit 1; \
 	}
 
-	type gox >/dev/null 2>&1 || { \
+
+	@type semver-bump >/dev/null 2>&1 || { \
+	  echo "\033[1;33msemver-bump is not installed. See https://github.com/giantswarm/semver-bump\033[m"; \
+	  echo "Recommend: $$ go get github.com/giantswarm/semver-bump"; \
+	  exit 1; \
+	}
+
+	@type gox >/dev/null 2>&1 || { \
 	  echo "\033[1;33mGox is not installed. See https://github.com/mitchellh/gox\033[m"; \
-	  echo "$$ go get github.com/mitchellh/gox"; \
+	  echo "Recommend: $$ go get github.com/mitchellh/gox"; \
 	  exit 1; \
 	}
 
-	gem list | grep fpm >/dev/null 2>&1 || { \
+	@gem list | grep fpm >/dev/null 2>&1 || { \
 	  echo "\033[1;33mfpm is not installed. See https://github.com/jordansissel/fpm\033[m"; \
-	  echo "$$ gem install fpm"; \
+	  echo "Recommend: $$ gem install fpm"; \
 	  exit 1; \
 	}
 
-	type rpmbuild >/dev/null 2>&1 || { \
-	  echo "\033[1;33mrpmbuild is not installed. See the package for your distribution\033[m"; \
+	@type rpmbuild >/dev/null 2>&1 || { \
+	  echo "\033[1;33mRecommend: rpmbuild is not installed. See the package for your distribution\033[m"; \
 	  exit 1; \
 	}
 

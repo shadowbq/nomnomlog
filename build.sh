@@ -1,12 +1,11 @@
 #!/bin/sh
-
 BUILDPATH="build/nomnomlog"
 
 set -e
-
 mkdir -p $BUILDPATH
-
-go build -o $BUILDPATH/nomnomlog .
+VERSION=`cat VERSION`
+echo "Building nomnomlog ${VERSION} local-release, use Makefile for distro-releases."
+go build -o $BUILDPATH/nomnomlog -ldflags="-X main.version=${VERSION}" .
 cp README.md LICENSE example_config.yml $BUILDPATH
 
 cd $BUILDPATH/..
