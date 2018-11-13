@@ -5,19 +5,31 @@ include packaging/Makefile.packaging
 .PHONY: reportVersion depend clean test build tarball
 .DEFAULT: build
 
-GOLDFLAGS="-X main.Version=$(PACKAGE_VERSION)"
+GOLD_FLAGS="-X main.Version=$(PACKAGE_VERSION)"
 
 X86_PLATFORMS := windows linux
 X64_PLATFORMS := windows linux
 ARM_PLATFORMS := linux
 CGO_PLATFORMS := darwin
 
+ifeq '$(findstring ;,$(PATH))' ';'
+	DETECTED_OS := Windows
+else
+	DETECTED_OS := $(shell uname 2>/dev/null || echo Unknown)
+	DETECTED_OS := $(patsubst CYGWIN%,Cygwin,$(DETECTED_OS))
+	DETECTED_OS := $(patsubst MSYS%,MSYS,$(DETECTED_OS))
+	DETECTED_OS := $(patsubst MINGW%,MSYS,$(DETECTED_OS))
+endif
+
 BUILD_PAIRS := $(foreach p,$(X86_PLATFORMS), $(p)/i386 )
 BUILD_PAIRS += $(foreach p,$(X64_PLATFORMS), $(p)/amd64 )
 BUILD_PAIRS += $(foreach p,$(ARM_PLATFORMS), $(p)/armhf )
-BUILD_PAIRS += $(foreach p,$(CGO_PLATFORMS), $(p)/amd64 )
 
 BUILD_DOCS := README.md LICENSE example_config.yml
+
+ifeq ($(DETECTED_OS),Darwin)
+	BUILD_PAIRS += $(foreach p,$(CGO_PLATFORMS), $(p)/amd64 )
+endif
 
 package: $(BUILD_PAIRS)
 
@@ -27,11 +39,15 @@ reportVersion:
 build: reportVersion depend clean test
 	@echo
 	@echo "\033[32mBuilding ----> \033[m"
-	gox -ldflags=$(GOLDFLAGS) -os="$(X64_PLATFORMS)" -arch="amd64" -output "build/{{.OS}}/amd64/nomnomlog/nomnomlog"
-	gox -ldflags=$(GOLDFLAGS) -os="$(X86_PLATFORMS)" -arch="386" -output "build/{{.OS}}/i386/nomnomlog/nomnomlog"
-	gox -ldflags=$(GOLDFLAGS) -os="linux" -arch="arm" -output "build/linux/armhf/nomnomlog/nomnomlog"
-	gox -ldflags=$(GOLDFLAGS) -cgo -os="$(CGO_PLATFORMS)" -arch="amd64" -output "build/{{.OS}}/amd64/nomnomlog/nomnomlog"
 
+	gox -ldflags=$(GOLD_FLAGS) -os="$(X64_PLATFORMS)" -arch="amd64" -output "build/{{.OS}}/amd64/nomnomlog/nomnomlog"
+	gox -ldflags=$(GOLD_FLAGS) -os="$(X86_PLATFORMS)" -arch="386" -output "build/{{.OS}}/i386/nomnomlog/nomnomlog"
+	gox -ldflags=$(GOLD_FLAGS) -os="linux" -arch="arm" -output "build/linux/armhf/nomnomlog/nomnomlog"
+# Mac OS X - daemon_darwin.go:6:10: fatal error: mach-o/dyld.h 
+ifeq ($(DETECTED_OS),Darwin)
+	gox -ldflags=$(GOLD_FLAGS) -cgo -os="$(CGO_PLATFORMS)" -arch="amd64" -output "build/{{.OS}}/amd64/nomnomlog/nomnomlog"
+endif
+	
 
 clean:
 	@echo
@@ -108,7 +124,7 @@ $(BUILD_PAIRS): build
 	@echo "\033[32mPackaging ----> $@\033[m"
 	$(eval PLATFORM := $(strip $(subst /, ,$(dir $@))))
 	$(eval ARCH := $(notdir $@))
-	mkdir pkg || echo
+	mkdir -p pkg || echo
 	cp $(BUILD_DOCS) build/$@/nomnomlog
 
 	if [ "$(PLATFORM)" = "linux" ]; then\
