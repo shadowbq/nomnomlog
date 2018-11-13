@@ -60,7 +60,7 @@ clean:
 test:
 	@echo
 	@echo "\033[32mTesting ----> \033[m"
-	go test -v -race ./...
+	go test -v -race $(go list ./... | grep -v /vendor/)
 
 
 depend:
