@@ -4,7 +4,7 @@
 <plist version = "1.0">
   <dict>
     <key>Label</key>
-    <string>com.papertrailapp.nomnomlog</string>
+    <string>com.github.shadowbq.nomnomlog</string>
     <key>RunAtLoad</key>
     <true/>
     <key>KeepAlive</key>

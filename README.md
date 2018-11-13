@@ -32,13 +32,13 @@ Untar the package, copy the "nomnomlog" executable into your $PATH,
 and then customize the included example_config.yml with the log file paths
 to read and the host/port to log to.
 
-Optionally, move and rename the configuration file to `/etc/log_files.yml` so
+Optionally, move and rename the configuration file to `/etc/nomnomlog-config.yml` so
 that nomnomlog picks it up automatically. For example:
 
 ```shell
 sudo cp ./nomnomlog /usr/local/bin
-sudo cp example_config.yml /etc/log_files.yml
-sudo vi /etc/log_files.yml
+sudo cp example_config.yml /etc/nomnomlog-config.yml
+sudo vi /etc/nomnomlog-config.yml
 ```
 
 Configuration directives can also be specified as command-line arguments (below).
@@ -47,7 +47,7 @@ Configuration directives can also be specified as command-line arguments (below)
 
 ```shell
     Usage of nomnomlog:
-      -c, --configfile string             Path to config (default "/etc/log_files.yml")
+      -c, --configfile string             Path to config (default "/etc/nomnomlog-config.yml")
           --debug-log-cfg string          The debug log file; overridden by -D/--no-detach
       -d, --dest-host string              Destination syslog hostname or IP
       -p, --dest-port int                 Destination syslog port (default 514)
@@ -73,7 +73,7 @@ and send to port `logs.papertrailapp.com:12345`:
 
     $> nomnomlog -c example_config.yml -p 12345 --pid-file=/tmp/nomnomlog.pid /var/log/mysqld.log
 
-Stay attached to the terminal, look for and use `/etc/log_files.yml` if it
+Stay attached to the terminal, look for and use `/etc/nomnomlog-config.yml` if it
 exists, and send with facility local0 to `a.example.com:514`:
 
     $> nomnomlog -D -d a.example.com -f local0 /var/log/mysqld.log
@@ -109,13 +109,13 @@ or add `protocol: tls` to your configuration file.
 
 ## Configuration
 
-By default, nomnomlog looks for a configuration in `/etc/log_files.yml`.
+By default, nomnomlog looks for a configuration in `/etc/nomnomlog-config.yml`.
 
 The archive comes with a [sample config](https://github.com/shadowbq/nomnomlog/blob/master/example_config.yml). Optionally:
 
-`$> cp example_config.yml.example /etc/log_files.yml`
+`$> cp example_config.yml.example /etc/nomnomlog-config.yml`
 
-`log_files.yml` has filenames to log from (as an array) and hostname and port
+`nomnomlog-config.yml` has filenames to log from (as an array) and hostname and port
 to log to (as a hash). Wildcards are supported using * and standard shell
 globbing. Filenames given on the command line are additive to those in
 the config file.
@@ -144,7 +144,7 @@ init script or by manually killing and restarting the process. For example:
 
 ## Advanced Configuration (Optional)
 
-Here's an [advanced config](https://github.com/shadowbq/nomnomlog/blob/master/examples/log_files.yml.example.advanced) which uses all options.
+Here's an [advanced config](https://github.com/shadowbq/nomnomlog/blob/master/examples/nomnomlog-config.yml.example.advanced) which uses all options.
 
 ### Override hostname
 

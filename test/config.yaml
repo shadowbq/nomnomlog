@@ -15,4 +15,4 @@ exclude_files:
   - \.DS_Store
 tcp_max_line_length: 99991
 connect_timeout: 5
-pid_file: "/var/run/rs2.pid"
+pid_file: "/var/run/nomnomlog.pid"

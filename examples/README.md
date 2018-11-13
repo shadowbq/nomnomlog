@@ -4,11 +4,11 @@
 
 This is an example Mac OS X plist file.  This file should be placed at `/Library/LaunchDaemons/com.papertrailapp.nomnomlog.plist`.
 
-## log_files.yml.example
+## nomnomlog-config.yml.example
 
-This is a simple configuration file example.  Use it as a template for your configuration.  This file should be placed at `/etc/log_files.yml`.
+This is a simple configuration file example.  Use it as a template for your configuration.  This file should be placed at `/etc/nomnomlog-config.yml`.
 
-## log_files.yml.example.advanced
+## nomnomlog-config.yml.example.advanced
 
 More advanced example of above.
 

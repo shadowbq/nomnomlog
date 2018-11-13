@@ -31,7 +31,7 @@ var (
 
 const (
 	envPrefix         = "nomnomlog"
-	defaultConfigFile = "/etc/log_files.yml"
+	defaultConfigFile = "/etc/nomnomlog-config.yml"
 )
 
 // The global Config object for nomnomlog server. "mapstructure" tags

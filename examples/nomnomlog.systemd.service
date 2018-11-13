@@ -4,7 +4,7 @@ Documentation=https://github.com/shadowbq/nomnomlog
 After=network-online.target
 
 [Service]
-ExecStartPre=/usr/bin/test -e /etc/log_files.yml
+ExecStartPre=/usr/bin/test -e /etc/nomnomlog-config.yml
 ExecStart=/usr/local/bin/nomnomlog -D
 Restart=always
 User=root

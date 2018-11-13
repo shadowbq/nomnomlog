@@ -51,7 +51,7 @@ func TestRawConfig(t *testing.T) {
 	assert.Equal(c.TCP, false)
 	assert.Equal(c.TLS, true)
 	assert.Equal(c.LogLevels, "<root>=INFO")
-	assert.Equal(c.PidFile, "/var/run/rs2.pid")
+	assert.Equal(c.PidFile, "/var/run/nomnomlog.pid")
 	assert.Equal(c.DebugLogFile, "/dev/null")
 	assert.Equal(c.NoDetach, false)
 	sev, err := syslog.Severity("notice")

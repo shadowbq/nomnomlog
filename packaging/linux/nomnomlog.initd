@@ -20,7 +20,7 @@
 # processname: nomnomlog
 
 prog="nomnomlog"
-config="/etc/log_files.yml"
+config="/etc/nomnomlog-config.yml"
 pid_dir="/var/run"
 
 EXTRAOPTIONS=""

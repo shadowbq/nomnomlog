@@ -130,7 +130,7 @@ $(BUILD_PAIRS): build
 	if [ "$(PLATFORM)" = "linux" ]; then\
 		mkdir -p pkg/tmp/etc/init.d;\
 		mkdir -p pkg/tmp/usr/local/bin;\
-		cp -f example_config.yml pkg/tmp/etc/log_files.yml;\
+		cp -f example_config.yml pkg/tmp/etc/nomnomlog-config.yml;\
 		cp -f packaging/linux/nomnomlog.initd pkg/tmp/etc/init.d/nomnomlog;\
 		cp -f build/$@/nomnomlog/nomnomlog pkg/tmp/usr/local/bin;\
 		(cd pkg && \
@@ -148,8 +148,8 @@ $(BUILD_PAIRS): build
 		  --url $(PACKAGE_URL) \
 		  --before-remove ../packaging/linux/deb/prerm \
 		  --after-install ../packaging/linux/deb/postinst \
-		  --config-files etc/log_files.yml \
-		  --config-files etc/init.d/nomnomlog usr/local/bin/nomnomlog etc/log_files.yml etc/init.d/nomnomlog && \
+		  --config-files etc/nomnomlog-config.yml \
+		  --config-files etc/init.d/nomnomlog usr/local/bin/nomnomlog etc/nomnomlog-config.yml etc/init.d/nomnomlog && \
 		fpm \
 		  -s dir \
 		  -C tmp \
@@ -164,9 +164,9 @@ $(BUILD_PAIRS): build
 		  --url $(PACKAGE_URL) \
 		  --before-remove ../packaging/linux/rpm/preun \
 		  --after-install ../packaging/linux/rpm/post \
-		  --config-files etc/log_files.yml \
+		  --config-files etc/nomnomlog-config.yml \
 		  --config-files etc/init.d/nomnomlog \
-		  --rpm-os linux usr/local/bin/nomnomlog etc/log_files.yml etc/init.d/nomnomlog );\
+		  --rpm-os linux usr/local/bin/nomnomlog etc/nomnomlog-config.yml etc/init.d/nomnomlog );\
 		rm -R -f pkg/tmp;\
 	fi
 
