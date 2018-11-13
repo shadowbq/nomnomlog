@@ -10,7 +10,7 @@
 # Description: Runs nomnomlog
 ### END INIT INFO
 
-#       /etc/init.d/nomnomlog
+# /etc/init.d/nomnomlog
 #
 # Starts the nomnomlog daemon
 #
