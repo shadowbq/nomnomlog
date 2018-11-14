@@ -10,7 +10,7 @@ Placing `nomnomlog` inside of a base centos/ubuntu/debian image would result in 
 
 Have docker or a container management system (ECS/Kub/OpenShift/etc.) available.
 
-## Build and Run (with docker cli):
+## Build and Run (with docker cli)
 
 ```shell
 #change version based on packages available on release page
@@ -68,7 +68,7 @@ Remove the comment lines at the bottom of the dockerfile, rebuild the image, and
 
 Keep the image minimal so it can be re-deployed in your enviroments.
 
-Use environment variables to manipulate nomnomlog's configuration - docs.docker.com (search ENV) 
+Use environment variables to manipulate nomnomlog's configuration - docs.docker.com (search ENV)
 OR volume mount a configuration file `/etc/nomnomlog-config.yml`
 
 Use the docker cli for debugging/testing/development/prototyping, any other use-case should invole orchestration;

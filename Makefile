@@ -2,7 +2,7 @@ export GO15VENDOREXPERIMENT=1
 
 include packaging/Makefile.packaging
 
-.PHONY: reportVersion depend clean test build tarball
+.PHONY: reportVersion depend dependPackage clean test build tarball
 .DEFAULT: build
 
 GOLD_FLAGS="-X main.Version=$(PACKAGE_VERSION)"
@@ -62,10 +62,30 @@ test:
 	@echo "\033[32mTesting ----> \033[m"
 	go test -v -race $(go list ./... | grep -v /vendor/)
 
+dependPackage:
+	@echo
+	@echo "\033[32mChecking Package Dependencies ----> \033[m"
+	@type zip >/dev/null 2>&1|| { \
+	  echo "\033[1;33mZIP is required to package this application\033[m"; \
+	  echo "\033[1;33mIf you are using homebrew on OSX, run\033[m"; \
+	  echo "Recommend: $$ brew install go --cross-compile-all"; \
+	  exit 1; \
+	}
+
+	@gem list | grep fpm >/dev/null 2>&1 || { \
+	  echo "\033[1;33mfpm is not installed. See https://github.com/jordansissel/fpm\033[m"; \
+	  echo "Recommend: $$ gem install fpm"; \
+	  exit 1; \
+	}
+
+	@type rpmbuild >/dev/null 2>&1 || { \
+	  echo "\033[1;33mRecommend: rpmbuild is not installed. See the package for your distribution\033[m"; \
+	  exit 1; \
+	}
 
 depend:
 	@echo
-	@echo "\033[32mChecking Dependencies ----> \033[m"
+	@echo "\033[32mChecking Build Dependencies ----> \033[m"
 
 ifndef PACKAGE_VERSION
 	@echo "\033[1;33mPACKAGE_VERSION is not set. In order to build a package I need PACKAGE_VERSION=n\033[m"
@@ -107,19 +127,7 @@ endif
 	  exit 1; \
 	}
 
-	@gem list | grep fpm >/dev/null 2>&1 || { \
-	  echo "\033[1;33mfpm is not installed. See https://github.com/jordansissel/fpm\033[m"; \
-	  echo "Recommend: $$ gem install fpm"; \
-	  exit 1; \
-	}
-
-	@type rpmbuild >/dev/null 2>&1 || { \
-	  echo "\033[1;33mRecommend: rpmbuild is not installed. See the package for your distribution\033[m"; \
-	  exit 1; \
-	}
-
-
-$(BUILD_PAIRS): build
+$(BUILD_PAIRS): dependPackage build
 	@echo
 	@echo "\033[32mPackaging ----> $@\033[m"
 	$(eval PLATFORM := $(strip $(subst /, ,$(dir $@))))
@@ -170,4 +178,12 @@ $(BUILD_PAIRS): build
 		rm -R -f pkg/tmp;\
 	fi
 
-	cd build/$@ && echo `pwd` && tar -cvzf ../../../pkg/nomnomlog_$(PLATFORM)_$(ARCH).tar.gz nomnomlog
+	if [ "$(PLATFORM)" = "windows" ]; then \
+		cd build/$@ && echo `pwd` && zip -r ../../../pkg/nomnomlog_$(PLATFORM)_$(ARCH).zip nomnomlog;\
+	else \
+		cd build/$@ && echo `pwd` && tar -cvzf ../../../pkg/nomnomlog_$(PLATFORM)_$(ARCH).tar.gz nomnomlog;\
+	fi
+
+	@echo "Done Packaging"
+
+	
