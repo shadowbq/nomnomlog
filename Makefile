@@ -78,6 +78,12 @@ dependPackage:
 	  exit 1; \
 	}
 
+	@gem list | grep ronn >/dev/null 2>&1 || { \
+	  echo "\033[1;33mronn is not installed. See https://github.com/rtomayko/ronn\033[m"; \
+	  echo "Recommend: $$ gem install fpm"; \
+	  exit 1; \
+	}
+
 	@type rpmbuild >/dev/null 2>&1 || { \
 	  echo "\033[1;33mRecommend: rpmbuild is not installed. See the package for your distribution\033[m"; \
 	  exit 1; \
@@ -134,6 +140,10 @@ $(BUILD_PAIRS): dependPackage build
 	$(eval ARCH := $(notdir $@))
 	mkdir -p pkg || echo
 	cp $(BUILD_DOCS) build/$@/nomnomlog
+	@pwd
+	@mkdir -p pkg/tmp/usr/share/man/man5
+	@ronn -r README.md --pipe > pkg/tmp/usr/share/man/man5/nomnomlog.5
+	@file pkg/tmp/usr/share/man/man5/nomnomlog.5
 
 	if [ "$(PLATFORM)" = "linux" ]; then\
 		mkdir -p pkg/tmp/etc/init.d;\
@@ -157,7 +167,8 @@ $(BUILD_PAIRS): dependPackage build
 		  --before-remove ../packaging/linux/deb/prerm \
 		  --after-install ../packaging/linux/deb/postinst \
 		  --config-files etc/nomnomlog-config.yml \
-		  --config-files etc/init.d/nomnomlog usr/local/bin/nomnomlog etc/nomnomlog-config.yml etc/init.d/nomnomlog && \
+		  --config-files etc/init.d/nomnomlog usr/local/bin/nomnomlog etc/nomnomlog-config.yml etc/init.d/nomnomlog \
+		  usr/share/man && \
 		fpm \
 		  -s dir \
 		  -C tmp \
@@ -174,7 +185,8 @@ $(BUILD_PAIRS): dependPackage build
 		  --after-install ../packaging/linux/rpm/post \
 		  --config-files etc/nomnomlog-config.yml \
 		  --config-files etc/init.d/nomnomlog \
-		  --rpm-os linux usr/local/bin/nomnomlog etc/nomnomlog-config.yml etc/init.d/nomnomlog );\
+		  --rpm-os linux usr/local/bin/nomnomlog etc/nomnomlog-config.yml etc/init.d/nomnomlog \
+		  usr/share/man );\
 		rm -R -f pkg/tmp;\
 	fi
 
