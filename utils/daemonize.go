@@ -7,6 +7,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"syscall"
 
 	"github.com/VividCortex/godaemon"
 	"github.com/nightlyone/lockfile"
@@ -54,14 +55,29 @@ func Daemonize(logFilePath, pidFilePath string) {
 	}()
 
 	lock, err := lockfile.New(pidFilePath)
+
+	removePidFile := func() {
+		fmt.Fprintf(os.Stderr, "Removing %s\n", pidFilePath)
+		lock.Unlock()
+	}
+
 	if err != nil {
 		fmt.Printf("Error locking: %v\n", err)
+		if err.Error() == "os: process already finished" {
+			removePidFile()
+		}
 		os.Exit(1)
 	}
 	err = lock.TryLock()
 	if err != nil {
 		fmt.Printf("Cannot lock \"%v\": %v\n", lock, err)
+		if err.Error() == "os: process already finished" {
+			removePidFile()
+		}
 		os.Exit(1)
 	}
 
+	SignalHandlers[syscall.SIGINT] = removePidFile  // Terminate
+	SignalHandlers[syscall.SIGTERM] = removePidFile // Terminate
+	SignalHandlers[syscall.SIGQUIT] = removePidFile // Stop gracefully
 }
