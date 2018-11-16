@@ -1,4 +1,11 @@
+nomnomlog - An agent based client syslog tool
+Copyright (c) 2018 Scott MacGregor
+
+Original Fork: remote_syslog2
 Copyright (c) 2013 Paul Morton, Papertrail, Inc., & Paul Hammond
+
+Copyright for portions of nomnomlog are held by 2013 Paul Morton, Papertrail, Inc., & Paul Hammond
+as part of remote_syslog2. All other copyright for nomnomlog are held by 2018 Scott MacGregor.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

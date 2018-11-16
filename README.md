@@ -65,7 +65,7 @@ Usage of nomnomlog 0.1.0:
       --hostname string               Local hostname to send from (default "octothorpe")
       --log string                    Set loggo config, like: --log="<root>=DEBUG" (default "<root>=INFO")
       --new-file-check-interval int   How often to check for new files (seconds) (default 10)
-  -D, --no-detach                     Don't daemonize and detach from the terminal; overrides --debug-log-cfg
+  -D, --no-detach                     Do not daemonize and detach from the terminal; overrides --debug-log-cfg
       --no-eventmachine-tail          No action, provided for backwards compatibility
       --pid-file string               Location of the PID file
       --poll                          Detect changes by polling instead of inotify
