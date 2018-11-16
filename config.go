@@ -135,7 +135,7 @@ func initConfigAndFlags() {
 
 	// only present this flag to systems that can daemonize
 	if utils.CanDaemonize {
-		flags.BoolP("no-detach", "D", false, "Don't daemonize and detach from the terminal; overrides --debug-log-cfg")
+		flags.BoolP("no-detach", "D", false, "Do not daemonize and detach from the terminal; overrides --debug-log-cfg")
 		config.BindPFlag("no_detach", flags.Lookup("no-detach"))
 	}
 

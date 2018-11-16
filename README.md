@@ -20,13 +20,21 @@ Uses:
 
 ## Nomnomlog
 
-Nomnomlog is a fork of the go-lang `remote_syslog2`. This fork is a feature fork for including different filter criteria prior to sending
-logs to the central server.
+Nomnomlog is a feature enhanced fork of the go-lang `remote_syslog2`. Nomnomlog differences include: different filter criteria prior to sending
+logs to the central server, man pages, enhanced developer support and testing, and general fixes.
 
 ## Installing
 
-Precompiled binaries for Mac (Darwin), Linux and Windows are available on the
-[nomnomlog releases page][releases].
+Prepackaged distributions are available on the [nomnomlog releases page][releases].
+
+```shell
+# For Debian/Ubuntu you might want the .deb package
+sudo dpkg -i nomnomlog_0.1.0_amd64.deb
+# For RHEL/Centos you might want the .rpm package
+sudo rpm -i nomnomlog-0.1.0-1.x86_64.rpm
+```
+
+Precompiled binaries in tar/gz for generic Linux are also available.
 
 Untar the package, copy the "nomnomlog" executable into your $PATH,
 and then customize the included example_config.yml with the log file paths
@@ -46,23 +54,26 @@ Configuration directives can also be specified as command-line arguments (below)
 ## Usage
 
 ```shell
-    Usage of nomnomlog:
-      -c, --configfile string             Path to config (default "/etc/nomnomlog-config.yml")
-          --debug-log-cfg string          The debug log file; overridden by -D/--no-detach
-      -d, --dest-host string              Destination syslog hostname or IP
-      -p, --dest-port int                 Destination syslog port (default 514)
-          --eventmachine-tail             No action, provided for backwards compatibility
-      -f, --facility string               Facility (default "user")
-          --hostname string               Local hostname to send from (default: OS hostname)
-          --log string                    Set loggo config, like: --log="<root>=DEBUG" (default "<root>=INFO")
-          --new-file-check-interval int   How often to check for new files (seconds) (default 10)
-      -D, --no-detach                     Do NOT daemonize and detach from the terminal; overrides --debug-log-cfg
-          --no-eventmachine-tail          No action, provided for backwards compatibility
-          --pid-file string               Location of the PID file
-          --poll                          Detect changes by polling instead of inotify
-      -s, --severity string               Severity (default "notice")
-          --tcp                           Connect via TCP (no TLS)
-          --tls                           Connect via TCP with TLS
+Usage of nomnomlog 0.1.0:
+  -c, --configfile string             Path to config (default "/etc/nomnomlog-config.yml")
+      --debug-log-cfg string          The debug log file; overridden by -D/--no-detach
+  -d, --dest-host string              Destination syslog hostname or IP
+  -p, --dest-port int                 Destination syslog port (default 514)
+      --eventmachine-tail             No action, provided for backwards compatibility
+  -f, --facility string               Facility (default "user")
+  -h, --help                          Display this help message
+      --hostname string               Local hostname to send from (default "octothorpe")
+      --log string                    Set loggo config, like: --log="<root>=DEBUG" (default "<root>=INFO")
+      --new-file-check-interval int   How often to check for new files (seconds) (default 10)
+  -D, --no-detach                     Don't daemonize and detach from the terminal; overrides --debug-log-cfg
+      --no-eventmachine-tail          No action, provided for backwards compatibility
+      --pid-file string               Location of the PID file
+      --poll                          Detect changes by polling instead of inotify
+  -s, --severity string               Severity (default "notice")
+      --tcp                           Connect via TCP (no TLS)
+      --tls                           Connect via TCP with TLS
+      --truncate-hostname             Local truncate-hostname to send from
+  -V, --version                       Display version and exit
 ```
 
 ## Example
@@ -195,7 +206,7 @@ the truncated file and continue to read it.
 Some logging programs such as Java's gclog (`-XX:+PrintGC` or `-verbose:gc`)
 do not log in append mode, so if another program such as `logrotate` (set to
 `copytruncate`) truncates the file, on the next write of the Java logger, the
-OS will fill the file with NUL bytes upto the current offset of the file descriptor.
+OS will fill the file with NUL bytes up to the current offset of the file descriptor.
 More info on that [here](http://stackoverflow.com/questions/8353401/garbage-collector-log-loggc-file-rotation-with-logrotate-does-not-work-properl).
 `nomnomlog` will detect those leading NUL bytes, discard them, and log the discard count.
 
@@ -334,7 +345,7 @@ many external dependencies.
 
 A distro-release is wrapped in a `rpm` or `deb` requires additional tooling that may not be necessary for individual usage.
 
-The current convension is to use genus.species of ants for release names (Tetramorium.insolens).
+The current convention is to use genus.species of ants for release names (Tetramorium.insolens).
 
 ### Dependencies for local-release
 
