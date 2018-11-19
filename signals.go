@@ -37,56 +37,31 @@ func dumpStacks() {
 
 func AddSignalHandlers(c *Config) {
 	signals := make(chan os.Signal, 100)
+
 	signal.Notify(signals,
 		syscall.SIGUSR1,
 		syscall.SIGHUP,
 		syscall.SIGINT,
 		syscall.SIGTERM,
 		syscall.SIGQUIT)
-	go func() {
-		sig := <-signals
-		fmt.Fprintf(os.Stderr, "Handling signal: %v\n", sig)
-		switch sig {
-		case syscall.SIGUSR1:
-			dumpStacks()
-		case syscall.SIGHUP:
-			dumpConfig(c)
-		case syscall.SIGINT, syscall.SIGTERM:
-			// removePidFile()
-			os.Exit(128 + int(sig.(syscall.Signal)))
-		case syscall.SIGQUIT:
-			//removePidFile
-			os.Exit(0)
-		}
 
+	go func() {
+		for sig := range signals {
+			go func(sig os.Signal) {
+				fmt.Fprintf(os.Stderr, "Handling signal: %v\n", sig)
+				switch sig {
+				case syscall.SIGUSR1:
+					dumpStacks()
+				case syscall.SIGHUP:
+					dumpConfig(c)
+				case syscall.SIGINT, syscall.SIGTERM:
+					// removePidFile()
+					os.Exit(128 + int(sig.(syscall.Signal)))
+				case syscall.SIGQUIT:
+					//removePidFile
+					os.Exit(0)
+				}
+			}(sig)
+		}
 	}()
 }
-
-//func AddSignalHandlers(c *Config) {
-//	sigChan := make(chan os.Signal, 1)
-//	go func() {
-//		for sig := range sigChan {
-//			go func(sig os.Signal) {
-//				fmt.Fprintf(os.Stderr, "Handling signal: %v\n", sig)
-//				switch sig {
-//				case syscall.SIGUSR1:
-//					dumpStacks()
-//				case syscall.SIGHUP:
-//					dumpConfig(c)
-//				case syscall.SIGINT, syscall.SIGTERM:
-//					// removePidFile()
-//					os.Exit(128 + int(sig.(syscall.Signal)))
-//				case syscall.SIGQUIT:
-//					//removePidFile
-//					os.Exit(0)
-//			}(sig)
-//
-//		}
-//	}()
-//	signal.Notify(sigChan,
-//				syscall.SIGUSR1,
-//				syscall.SIGHUP,
-//				syscall.SIGINT,
-//				syscall.SIGTERM,
-//				syscall.SIGQUIT)
-//}
