@@ -1,7 +1,7 @@
 files:
   - locallog.txt
-  - tag: abc
-  path: locallog.txt
+  - path: locallog.txt
+    tag: abc
 destination:
   host: 127.0.0.1
   port: 514

@@ -15,7 +15,6 @@ import (
 	"github.com/mitchellh/mapstructure"
 	"github.com/shadowbq/nomnomlog/papertrail"
 	"github.com/shadowbq/nomnomlog/syslog"
-	"github.com/shadowbq/nomnomlog/utils"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
@@ -134,7 +133,7 @@ func initConfigAndFlags() {
 	config.BindPFlag("log_levels", flags.Lookup("log"))
 
 	// only present this flag to systems that can daemonize
-	if utils.CanDaemonize {
+	if CanDaemonize {
 		flags.BoolP("no-detach", "D", false, "Do not daemonize and detach from the terminal; overrides --debug-log-cfg")
 		config.BindPFlag("no_detach", flags.Lookup("no-detach"))
 	}
@@ -173,7 +172,7 @@ func NewConfigFromEnv() (*Config, error) {
 	}
 
 	// override daemonize setting for platforms that don't support it
-	if !utils.CanDaemonize {
+	if !CanDaemonize {
 		config.Set("no_daemonize", true)
 	}
 
@@ -414,4 +413,8 @@ func usage() {
 
 func version() {
 	fmt.Fprintf(os.Stderr, "%s %s\n", envPrefix, Version)
+}
+
+func dumpConfig(c *Config) {
+	fmt.Fprintf(os.Stderr, "Print Config here. %v \n", c.Destination.Host)
 }

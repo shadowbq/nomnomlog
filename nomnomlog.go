@@ -14,7 +14,6 @@ import (
 	"github.com/howbazaar/loggo"
 	"github.com/papertrail/go-tail/follower"
 	"github.com/shadowbq/nomnomlog/syslog"
-	"github.com/shadowbq/nomnomlog/utils"
 )
 
 var log = loggo.GetLogger("")
@@ -42,7 +41,7 @@ func (s *Server) Start() error {
 	}
 
 	if !s.config.NoDetach {
-		utils.Daemonize(s.config.DebugLogFile, s.config.PidFile)
+		Daemonize(s.config.DebugLogFile, s.config.PidFile)
 	}
 
 	loggo.ConfigureLoggers(s.config.LogLevels)
@@ -157,7 +156,7 @@ func (s *Server) tailOne(file, tag string, whence int) {
 	}
 }
 
-// Tails files speficied in the globs and re-evaluates the globs
+// Tails files specified in the globs and re-evaluates the globs
 // at the specified interval
 func (s *Server) tailFiles() {
 	log.Debugf("Evaluating globs every %s", s.config.NewFileCheckInterval)
@@ -180,7 +179,7 @@ func (s *Server) globFiles(firstPass bool) {
 	for _, glob := range s.config.Files {
 
 		tag := glob.Tag
-		files, err := filepath.Glob(utils.ResolvePath(glob.Path))
+		files, err := filepath.Glob(ResolvePath(glob.Path))
 
 		if err != nil {
 			log.Errorf("Failed to glob %s: %s", glob.Path, err)
@@ -233,7 +232,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	utils.AddSignalHandlers()
+	AddSignalHandlers(c)
 
 	s := NewServer(c)
 	if err = s.Start(); err != nil {
