@@ -1,7 +1,7 @@
 # nomnomlog
 
 [![GitHub release](https://img.shields.io/github/release/shadowbq/nomnomlog.svg?style=for-the-badge)](https://github.com/shadowbq/nomnomlog/releases)
-[![license](https://img.shields.io/License-MIT-1E90FF.svg?style=for-the-badge)](/LICENSE)
+[![license](https://img.shields.io/badge/License-MIT-1E90FF.svg?style=for-the-badge)](/LICENSE)
 [![GitHub Release Date](https://img.shields.io/github/release-date/shadowbq/nomnomlog.svg?style=for-the-badge)](https://github.com/shadowbq/nomnomlog/releases)
 [![Code](https://img.shields.io/badge/Language-Go-ff69b4.svg?style=for-the-badge)](/README.md)
 
