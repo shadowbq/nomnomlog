@@ -276,6 +276,54 @@ $> nomnomlog apache=/var/log/httpd/access_log
 
 This functionality was introduced in version 0.17
 
+## Handling SIGNALS
+
+Linux signals can be caught and handled by the daemon. As an example SIGHUP will dump the current running configuration.
+
+```json
+2018-11-20 19:59:58 INFO  nomnomlog.go:50 Connecting to 127.0.0.1:5514 over udp
+2018-11-20 19:59:58 INFO  nomnomlog.go:197 Forwarding file: locallog.txt
+Handling signal: hangup
+Current Configuration:
+{
+	"ConnectTimeout": 30000000000,
+	"WriteTimeout": 30000000000,
+	"NewFileCheckInterval": 10000000000,
+	"ExcludeFiles": null,
+	"ExcludePatterns": [
+		{}
+	],
+	"LogLevels": "\u003croot\u003e=INFO",
+	"DebugLogFile": "/dev/null",
+	"PidFile": "/home/shadowbq/nomnomlog.pid",
+	"TcpMaxLineLength": 99990,
+	"NoDetach": true,
+	"TCP": false,
+	"TLS": false,
+	"TruncateHostname": false,
+	"Files": [
+		{
+			"Path": "locallog.txt",
+			"Tag": ""
+		},
+		{
+			"Path": "locallog.txt",
+			"Tag": "abc"
+		}
+	],
+	"Hostname": "octothorpe",
+	"Severity": 1,
+	"Facility": 0,
+	"Poll": false,
+	"Destination": {
+		"Host": "127.0.0.1",
+		"Port": 5514,
+		"Protocol": "udp"
+	},
+	"RootCAs": null
+}
+```
+
 ## Troubleshooting
 
 ### Generate debug log

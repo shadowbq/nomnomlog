@@ -2,6 +2,7 @@ package main
 
 import (
 	"crypto/x509"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
@@ -416,5 +417,11 @@ func version() {
 }
 
 func dumpConfig(c *Config) {
-	fmt.Fprintf(os.Stderr, "Print Config here. %v \n", c.Destination.Host)
+	fmt.Fprintf(os.Stderr, "Current Configuration: \n")
+	jsonConfig, err := json.MarshalIndent(c, "", "\t")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(string(jsonConfig))
 }
