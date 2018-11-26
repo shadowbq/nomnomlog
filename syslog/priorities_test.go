@@ -14,12 +14,12 @@ func TestLookupSeverity(t *testing.T) {
 	}
 
 	sev, err = Severity("foo")
-	if sev != 0 && err != ErrPriority {
+	if sev != 0 && err != ErrSeverity {
 		t.Errorf("Failed to lookup severity foo")
 	}
 
 	sev, err = Severity("")
-	if sev != 0 && err != ErrPriority {
+	if sev != 0 && err != ErrSeverity {
 		t.Errorf("Failed to lookup empty severity")
 	}
 }
@@ -34,12 +34,12 @@ func TestLookupFacility(t *testing.T) {
 	}
 
 	facility, err = Facility("foo")
-	if facility != 0 && err != ErrPriority {
+	if facility != 0 && err != ErrFacility {
 		t.Errorf("Failed to lookup facility foo")
 	}
 
 	facility, err = Facility("")
-	if facility != 0 && err != ErrPriority {
+	if facility != 0 && err != ErrFacility {
 		t.Errorf("Failed to lookup empty facility")
 	}
 }

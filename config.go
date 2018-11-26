@@ -212,6 +212,8 @@ func NewConfigFromEnv() (*Config, error) {
 		}
 	}
 
+	// https://github.com/shadowbq/nomnomlog/issues/17
+	// Make this more extensible
 	// add the papertrail root CA if necessary
 	if c.Destination.Protocol == "tls" && c.Destination.Host == "logs.papertrailapp.com" {
 		c.RootCAs = papertrail.RootCA()
@@ -236,6 +238,9 @@ func NewConfigFromEnv() (*Config, error) {
 }
 
 func (c *Config) Validate() error {
+
+	// Symptom of bad config, but not the correct error in all cases.
+	// GH Issue #4
 	if c.Destination.Host == "" {
 		return fmt.Errorf("No destination hostname specified")
 	}
@@ -346,7 +351,7 @@ func decodeLogFiles(f interface{}) ([]LogFile, error) {
 func decodePriority(p interface{}) (interface{}, error) {
 	ps, ok := p.(string)
 	if !ok {
-		return nil, fmt.Errorf("Invalid priority: %#v", p)
+		return nil, fmt.Errorf("Invalid SYSLOG Priority: %#v", p)
 	}
 
 	pri, err := syslog.Severity(ps)
