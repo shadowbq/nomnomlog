@@ -38,6 +38,7 @@ const (
 // signify the config file key names.
 type Config struct {
 	ConnectTimeout       time.Duration    `mapstructure:"connect_timeout"`
+	KeepReconnecting     bool             `mapstructure:"keep_reconnecting"`
 	WriteTimeout         time.Duration    `mapstructure:"write_timeout"`
 	NewFileCheckInterval time.Duration    `mapstructure:"new_file_check_interval"`
 	ExcludeFiles         []*regexp.Regexp `mapstructure:"exclude_files"`
@@ -52,8 +53,8 @@ type Config struct {
 	TruncateHostname     bool             `mapstructure:"truncate_hostname"`
 	Files                []LogFile
 	Hostname             string
-	Severity             syslog.Priority
-	Facility             syslog.Priority
+	Severity             syslog.Severity
+	Facility             syslog.Facility
 	Poll                 bool
 	Destination          struct {
 		Host     string
@@ -83,6 +84,7 @@ func initConfigAndFlags() {
 	config.SetDefault("tcp_max_line_length", 99990)
 	config.SetDefault("debug_log_file", "/dev/null")
 	config.SetDefault("connect_timeout", 30*time.Second)
+	config.SetDefault("keep_reconnecting", false)
 	config.SetDefault("write_timeout", 30*time.Second)
 
 	// flag-only "configuration" values (help and version)
@@ -348,19 +350,27 @@ func decodeLogFiles(f interface{}) ([]LogFile, error) {
 	return files, nil
 }
 
-func decodePriority(p interface{}) (interface{}, error) {
+func decodeFacility(p interface{}) (interface{}, error) {
 	ps, ok := p.(string)
 	if !ok {
-		return nil, fmt.Errorf("Invalid SYSLOG Priority: %#v", p)
+		return nil, fmt.Errorf("Invalid SYSLOG Facility String: %#v", p)
 	}
 
-	pri, err := syslog.Severity(ps)
+	pri, err := syslog.FacilityMap(ps)
 	if err == nil {
 		return pri, nil
 	}
 
-	// if it's not a severity, try facility
-	pri, err = syslog.Facility(ps)
+	return nil, fmt.Errorf("%s: %s", err.Error(), ps)
+}
+
+func decodeSeverity(p interface{}) (interface{}, error) {
+	ps, ok := p.(string)
+	if !ok {
+		return nil, fmt.Errorf("Invalid SYSLOG Severity String: %#v", p)
+	}
+
+	pri, err := syslog.SeverityMap(ps)
 	if err == nil {
 		return pri, nil
 	}
@@ -374,8 +384,10 @@ func decodeHook(from reflect.Type, to reflect.Type, data interface{}) (interface
 		return decodeLogFiles(data)
 	case reflect.TypeOf([]*regexp.Regexp{}):
 		return decodeRegexps(data)
-	case reflect.TypeOf(syslog.Priority(0)):
-		return decodePriority(data)
+	case reflect.TypeOf(syslog.Facility(0)):
+		return decodeFacility(data)
+	case reflect.TypeOf(syslog.Severity(0)):
+		return decodeSeverity(data)
 	case reflect.TypeOf(time.Duration(0)):
 		return decodeDuration(data)
 	}

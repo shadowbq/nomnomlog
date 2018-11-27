@@ -59,13 +59,16 @@ func (s *Server) Start() error {
 		s.config.TcpMaxLineLength,
 	)
 	if err != nil {
-		log.Errorf("Initial connection to server failed: %v - connection will be retried", err)
+		log.Errorf("Initial connection to server failed: %v - connection will be halted", err)
+		return err
 	}
 
 	go s.tailFiles()
 
-	for err = range s.logger.Errors {
-		log.Errorf("Syslog error: %v", err)
+	if err == nil {
+		for logger_err := range s.logger.Errors {
+			log.Errorf("Syslog error: %v", logger_err)
+		}
 	}
 
 	return nil
@@ -235,8 +238,16 @@ func main() {
 	AddSignalHandlers(c)
 
 	s := NewServer(c)
-	if err = s.Start(); err != nil {
-		log.Criticalf("Failed to start server: %v", err)
-		os.Exit(255)
+	if c.KeepReconnecting {
+		for c.KeepReconnecting {
+			if err = s.Start(); err != nil {
+				log.Warningf("Failed to start server: %v - retrying", err)
+			}
+		}
+	} else {
+		if err = s.Start(); err != nil {
+			log.Criticalf("Failed to start server: %v", err)
+			os.Exit(255)
+		}
 	}
 }

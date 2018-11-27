@@ -2,44 +2,26 @@ package syslog
 
 import (
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-func TestLookupSeverity(t *testing.T) {
-	var sev Priority
-	var err error
+func TestExtractFacility(t *testing.T) {
 
-	sev, err = Severity("warn")
-	if sev != SevWarning && err != nil {
-		t.Errorf("Failed to lookup severity warning")
-	}
+	//Priority(68) =  Severity(Warning|4) and Facility(UUCP|8)
+	var facility Facility
 
-	sev, err = Severity("foo")
-	if sev != 0 && err != ErrSeverity {
-		t.Errorf("Failed to lookup severity foo")
-	}
+	facility = PriorityExtractFacility(68)
+	assert.Equal(t, int(facility), 8)
 
-	sev, err = Severity("")
-	if sev != 0 && err != ErrSeverity {
-		t.Errorf("Failed to lookup empty severity")
-	}
 }
 
-func TestLookupFacility(t *testing.T) {
-	var facility Priority
-	var err error
+func TestExtractSeverity(t *testing.T) {
 
-	facility, err = Facility("local1")
-	if facility != LogLocal1 && err != nil {
-		t.Errorf("Failed to lookup facility local1")
-	}
+	//Priority(68) =  Severity(Warning|4) and Facility(UUCP|8)
+	var severity Severity
 
-	facility, err = Facility("foo")
-	if facility != 0 && err != ErrFacility {
-		t.Errorf("Failed to lookup facility foo")
-	}
+	severity = PriorityExtractSeverity(68)
+	assert.Equal(t, int(severity), 4)
 
-	facility, err = Facility("")
-	if facility != 0 && err != ErrFacility {
-		t.Errorf("Failed to lookup empty facility")
-	}
 }

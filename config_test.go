@@ -54,12 +54,12 @@ func TestRawConfig(t *testing.T) {
 	assert.Equal(c.PidFile, "/var/run/nomnomlog.pid")
 	assert.Equal(c.DebugLogFile, "/dev/null")
 	assert.Equal(c.NoDetach, false)
-	sev, err := syslog.Severity("notice")
+	sev, err := syslog.SeverityMap("notice")
 	if err != nil {
 		t.Fatal(err)
 	}
 	assert.Equal(c.Severity, sev)
-	fac, err := syslog.Facility("user")
+	fac, err := syslog.FacilityMap("user")
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -7,8 +7,8 @@ import (
 
 func TestPacketPriority(t *testing.T) {
 	tests := []struct {
-		severity Priority
-		facility Priority
+		severity Severity
+		facility Facility
 		priority Priority
 	}{
 		{0, 0, 0},

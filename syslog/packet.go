@@ -8,8 +8,8 @@ import (
 
 // A Packet represents an RFC5425 syslog message
 type Packet struct {
-	Severity Priority
-	Facility Priority
+	Severity Severity
+	Facility Facility
 	Hostname string
 	Tag      string
 	Time     time.Time
@@ -21,7 +21,8 @@ const rfc5424time = "2006-01-02T15:04:05.999999Z07:00"
 
 // The combined Facility and Severity of this packet. See RFC5424 for details.
 func (p Packet) Priority() Priority {
-	return (p.Facility << 3) | p.Severity
+	pp := ((int(p.Facility) * 8) + int(p.Severity))
+	return Priority(pp)
 }
 
 func (p Packet) cleanMessage() string {
@@ -45,7 +46,7 @@ func (p Packet) Generate(max_size int) string {
 	}
 }
 
-// A convenience function for testing
+// A convenience function for testing (Syslog.Parse)
 func Parse(line string) (Packet, error) {
 	var (
 		packet   Packet
@@ -57,7 +58,7 @@ func Parse(line string) (Packet, error) {
 
 	splitLine := strings.Split(line, " - - - ")
 	if len(splitLine) != 2 {
-		return packet, fmt.Errorf("couldn't parse %s", line)
+		return packet, fmt.Errorf("couldn't parse syslog line: %s", line)
 	}
 
 	fmt.Sscanf(splitLine[0], "<%d>1 %s %s %s", &priority, &ts, &hostname, &tag)
@@ -67,9 +68,17 @@ func Parse(line string) (Packet, error) {
 		return packet, err
 	}
 
+	// bitwise operators
+	// &    bitwise AND
+	// >>   right shift
+	//32 >> 5 is "32 divided by 2, 5 times"
+
+	// Severity: SeverityMap(priority & 7),
+	// Facility: FacilityMap(priority >> 3),
+
 	return Packet{
-		Severity: Priority(priority & 7),
-		Facility: Priority(priority >> 3),
+		Severity: PriorityExtractSeverity(priority),
+		Facility: PriorityExtractFacility(priority),
 		Hostname: hostname,
 		Tag:      tag,
 		Time:     t,

@@ -147,8 +147,8 @@ func tmpLogFile() *os.File {
 }
 
 func testConfig() *Config {
-	severity, _ := syslog.Severity("info")
-	facility, _ := syslog.Facility("user")
+	severity, _ := syslog.SeverityMap("info")
+	facility, _ := syslog.FacilityMap("user")
 	addr := server.addr()
 
 	return &Config{
