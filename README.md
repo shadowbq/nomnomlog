@@ -155,7 +155,7 @@ init script or by manually killing and restarting the process. For example:
 
 ## Advanced Configuration (Optional)
 
-Here's an [advanced config](https://github.com/shadowbq/nomnomlog/blob/master/examples/nomnomlog-config.yml.example.advanced) which uses all options.
+Here's an [advanced config](https://github.com/shadowbq/nomnomlog/blob/master/examples/nomnomlog-config.example.advanced.yml) which uses all options.
 
 ### Override hostname
 

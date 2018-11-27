@@ -24,3 +24,6 @@ destination:
 facility: local7
 severity: warn
 new_file_check_interval: "10" # Check every 10 seconds
+tcp_max_line_length: 99991
+connect_timeout: 5
+keep_reconnecting: true
