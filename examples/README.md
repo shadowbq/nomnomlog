@@ -32,6 +32,6 @@ This is an upstart configuration file.  Place this file at `/etc/init/nomnomlog.
 
 ## Packaging Configurations
 
-## com.papertrailapp.nomnomlog.plist
+### com.papertrailapp.nomnomlog.plist
 
 This is an example Mac OS X plist file.  This file should be placed at `/Library/LaunchDaemons/com.papertrailapp.nomnomlog.plist`.
