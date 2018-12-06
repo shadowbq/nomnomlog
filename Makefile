@@ -24,6 +24,7 @@ endif
 BUILD_PAIRS := $(foreach p,$(X86_PLATFORMS), $(p)/i386 )
 BUILD_PAIRS += $(foreach p,$(X64_PLATFORMS), $(p)/amd64 )
 BUILD_PAIRS += $(foreach p,$(ARM_PLATFORMS), $(p)/armhf )
+BUILD_PAIRS += $(foreach p,$(ARM_PLATFORMS), $(p)/armh64 )
 
 BUILD_DOCS := README.md LICENSE example_config.yml
 
@@ -42,7 +43,8 @@ build: reportVersion depend clean test
 
 	gox -ldflags=$(GOLD_FLAGS) -os="$(X64_PLATFORMS)" -arch="amd64" -output "build/{{.OS}}/amd64/nomnomlog/nomnomlog"
 	gox -ldflags=$(GOLD_FLAGS) -os="$(X86_PLATFORMS)" -arch="386" -output "build/{{.OS}}/i386/nomnomlog/nomnomlog"
-	gox -ldflags=$(GOLD_FLAGS) -os="linux" -arch="arm" -output "build/linux/armhf/nomnomlog/nomnomlog"
+	gox -ldflags=$(GOLDFLAGS) -os="$(ARM_PLATFORMS)" -arch="arm" -output "build/{{.OS}}/armhf/nomnomlog/nomnomlog"
+	gox -ldflags=$(GOLDFLAGS) -os="$(ARM_PLATFORMS)" -arch="arm64" -output "build/{{.OS}}/arm64/nomnomlog/nomnomlog"
 # Mac OS X - daemon_darwin.go:6:10: fatal error: mach-o/dyld.h 
 ifeq ($(DETECTED_OS),Darwin)
 	gox -ldflags=$(GOLD_FLAGS) -cgo -os="$(CGO_PLATFORMS)" -arch="amd64" -output "build/{{.OS}}/amd64/nomnomlog/nomnomlog"
