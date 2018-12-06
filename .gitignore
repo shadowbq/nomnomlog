@@ -28,3 +28,4 @@ tmp
 locallog.txt
 TEST.md
 broken_*
+.vscode
