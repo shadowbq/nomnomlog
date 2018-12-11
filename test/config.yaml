@@ -8,6 +8,9 @@ destination:
   host: logs.papertrailapp.com
   port: 514
   protocol: tls
+include_patterns:
+  - log only me
+  - log o.{1,2} me
 exclude_patterns:
   - don't log on me
   - do \w+ on me

@@ -26,6 +26,7 @@ func TestRawConfig(t *testing.T) {
 	assert.Equal(c.Destination.Host, "logs.papertrailapp.com")
 	assert.Equal(c.Destination.Port, 514)
 	assert.Equal(c.Destination.Protocol, "tls")
+	// assert.Equal(c.IncludePatterns, []*regexp.Regexp{regexp.MustCompile("log only me"), regexp.MustCompile(`log o.{1,2} me`)})
 	assert.Equal(c.ExcludePatterns, []*regexp.Regexp{regexp.MustCompile("don't log on me"), regexp.MustCompile(`do \w+ on me`)})
 	assert.Equal(c.ExcludeFiles, []*regexp.Regexp{regexp.MustCompile(`\.DS_Store`)})
 	assert.Equal(c.Files, []LogFile{

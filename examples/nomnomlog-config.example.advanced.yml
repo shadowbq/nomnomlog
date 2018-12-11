@@ -17,6 +17,9 @@ hostname: www42  # override OS hostname
 exclude_patterns:
   - exclude this
   - \d+ things
+include_patterns:
+  - log only me
+  - log o.{1,2} me  
 destination:
   host: HOST.papertrailapp.com # NOTE: change this to YOUR papertrail host!
   port: 12345   # NOTE: change this to YOUR papertrail port!

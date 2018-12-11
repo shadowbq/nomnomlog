@@ -1,5 +1,5 @@
 package main
 
-func AddSignalHandlers() {
+func AddSignalHandlers(c *Config) {
 	// NOOP
 }

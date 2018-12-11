@@ -41,10 +41,11 @@ build: reportVersion depend clean test
 	@echo
 	@echo "\033[32mBuilding ----> \033[m"
 
-	gox -ldflags=$(GOLD_FLAGS) -os="$(X64_PLATFORMS)" -arch="amd64" -output "build/{{.OS}}/amd64/nomnomlog/nomnomlog"
 	gox -ldflags=$(GOLD_FLAGS) -os="$(X86_PLATFORMS)" -arch="386" -output "build/{{.OS}}/i386/nomnomlog/nomnomlog"
+	gox -ldflags=$(GOLD_FLAGS) -os="$(X64_PLATFORMS)" -arch="amd64" -output "build/{{.OS}}/amd64/nomnomlog/nomnomlog"
+	
 	gox -ldflags=$(GOLDFLAGS) -os="$(ARM_PLATFORMS)" -arch="arm" -output "build/{{.OS}}/armhf/nomnomlog/nomnomlog"
-	gox -ldflags=$(GOLDFLAGS) -os="$(ARM_PLATFORMS)" -arch="arm64" -output "build/{{.OS}}/arm64/nomnomlog/nomnomlog"
+	gox -ldflags=$(GOLDFLAGS) -os="$(ARM_PLATFORMS)" -arch="arm64" -output "build/{{.OS}}/armh64/nomnomlog/nomnomlog"
 # Mac OS X - daemon_darwin.go:6:10: fatal error: mach-o/dyld.h 
 ifeq ($(DETECTED_OS),Darwin)
 	gox -ldflags=$(GOLD_FLAGS) -cgo -os="$(CGO_PLATFORMS)" -arch="amd64" -output "build/{{.OS}}/amd64/nomnomlog/nomnomlog"
@@ -141,10 +142,11 @@ $(BUILD_PAIRS): dependPackage build
 	$(eval PLATFORM := $(strip $(subst /, ,$(dir $@))))
 	$(eval ARCH := $(notdir $@))
 	mkdir -p pkg || echo
+	mkdir -p build/$@/nomnomlog
 	cp $(BUILD_DOCS) build/$@/nomnomlog
 	@pwd
 	@mkdir -p pkg/tmp/usr/share/man/man5
-	@ronn -r README.md --pipe > pkg/tmp/usr/share/man/man5/nomnomlog.5
+	ronn -W -r README.md --pipe > pkg/tmp/usr/share/man/man5/nomnomlog.5 2>/dev/null
 	@file pkg/tmp/usr/share/man/man5/nomnomlog.5
 
 	if [ "$(PLATFORM)" = "linux" ]; then\

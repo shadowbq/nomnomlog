@@ -43,6 +43,7 @@ type Config struct {
 	NewFileCheckInterval time.Duration    `mapstructure:"new_file_check_interval"`
 	ExcludeFiles         []*regexp.Regexp `mapstructure:"exclude_files"`
 	ExcludePatterns      []*regexp.Regexp `mapstructure:"exclude_patterns"`
+	IncludePatterns      []*regexp.Regexp `mapstructure:"include_patterns"`
 	LogLevels            string           `mapstructure:"log_levels"`
 	DebugLogFile         string           `mapstructure:"debug_log_file"`
 	PidFile              string           `mapstructure:"pid_file"`
