@@ -222,6 +222,19 @@ exclude_files:
     - .gz
 ```
 
+### Including lines matching a pattern
+
+There may be certain times when you only want certain log messages to be sent.  These may be
+Alert level log lines that are mixed into a TRACE level log. You can filter out all other lines
+easily from the respective application.  To filter these lines, use the
+include_patterns with an array or regexes:
+
+```yml
+    include_patterns:
+     - exclude this
+     - \d+ things
+```
+
 ### Excluding lines matching a pattern
 
 There may be certain log messages that you do not want to be sent.  These may be
@@ -234,6 +247,12 @@ exclude_patterns with an array or regexes:
      - exclude this
      - \d+ things
 ```
+
+### Order of Regular Expression Pattern matching
+
+Filter order to collect and send line data is:
+
+`If line matches ((include_patterns and does not match exclude patterns) or does not match exclude_patterns) then send line.`
 
 ### Multiple instances
 
@@ -353,6 +372,18 @@ $> nomnomlog --debug-log-cfg=logfile.txt --log="<root>=DEBUG"
 .. as well as any other arguments which are used in normal operation. This
 will set [loggo](https://github.com/juju/loggo#func-parseconfigurationstring)'s
 root logger to the `DEBUG` level and output to `logfile.txt`.
+
+To manage it on the command line use:
+
+```shell
+./build/nomnomlog/nomnomlog -D -c /etc/nomnomlog-config.yml --log="<root>=Trace"
+2018-12-17 17:55:31 INFO  nomnomlog.go:50 Connecting to 127.0.0.1:5514 over udp
+2018-12-17 17:55:31 DEBUG  nomnomlog.go:183 Evaluating globs every 10s
+2018-12-17 17:55:31 DEBUG  nomnomlog.go:199 Evaluating file globs
+2018-12-17 17:55:31 INFO  nomnomlog.go:218 Forwarding file: /var/log/syslog
+2018-12-17 17:55:31 TRACE  worker_registry.go:40 Adding /var/log/syslog to worker registry
+2018-12-17 17:55:41 DEBUG  nomnomlog.go:199 Evaluating file globs
+```
 
 ### Truncated messages
 

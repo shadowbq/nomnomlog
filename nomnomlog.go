@@ -135,10 +135,10 @@ func (s *Server) tailOne(file, tag string, whence int) {
 
 			l := line.String()
 
-			/*
-				if ( s.config.IncludePatterns blah blah is set )
-				{
-					if matchExps(l, s.config.IncludePatterns) {
+			if len(s.config.IncludePatterns) > 0 {
+				if matchExps(l, s.config.IncludePatterns) {
+
+					if !matchExps(l, s.config.ExcludePatterns) {
 
 						s.logger.Write(syslog.Packet{
 							Severity: s.config.Severity,
@@ -148,30 +148,26 @@ func (s *Server) tailOne(file, tag string, whence int) {
 							Tag:      tag,
 							Message:  l,
 						})
-
 						log.Tracef("Forwarding line: %s", l)
-
-					} else {
-						log.Tracef("Not Forwarding line: %s", l)
 					}
 				}
-			*/
-
-			if !matchExps(l, s.config.ExcludePatterns) {
-
-				s.logger.Write(syslog.Packet{
-					Severity: s.config.Severity,
-					Facility: s.config.Facility,
-					Time:     time.Now(),
-					Hostname: s.logger.ClientHostname,
-					Tag:      tag,
-					Message:  l,
-				})
-
-				log.Tracef("Forwarding line: %s", l)
-
 			} else {
-				log.Tracef("Not Forwarding line: %s", l)
+				if !matchExps(l, s.config.ExcludePatterns) {
+
+					s.logger.Write(syslog.Packet{
+						Severity: s.config.Severity,
+						Facility: s.config.Facility,
+						Time:     time.Now(),
+						Hostname: s.logger.ClientHostname,
+						Tag:      tag,
+						Message:  l,
+					})
+
+					log.Tracef("Forwarding line: %s", l)
+
+				} else {
+					log.Tracef("Not Forwarding line: %s", l)
+				}
 			}
 
 		case <-s.stopChan:
