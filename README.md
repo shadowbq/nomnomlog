@@ -231,8 +231,8 @@ include_patterns with an array or regexes:
 
 ```yml
     include_patterns:
-     - exclude this
-     - \d+ things
+     - include this
+     - alert
 ```
 
 ### Excluding lines matching a pattern
