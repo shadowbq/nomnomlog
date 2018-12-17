@@ -435,7 +435,7 @@ func version() {
 	fmt.Fprintf(os.Stderr, "%s %s\n", envPrefix, Version)
 }
 
-func regexCollectionToStringCollection(regpattern []*regexp.Regexp) []string {
+func regexpArrToStringArr(regpattern []*regexp.Regexp) []string {
 	var rsc []string
 	for _, element := range regpattern {
 		rsc = append(rsc, element.String())
@@ -462,19 +462,19 @@ func sizeOfCertPool(pool *x509.CertPool) (mysize int) {
 func dumpConfig(c *Config) {
 
 	fmt.Fprintf(os.Stderr, "Running Configuration: \n")
-	type SecAlias Config
+	type ConfigAlias Config
 	jsonConfig, err := json.MarshalIndent(&struct {
 		ExcludeFiles    []string
 		ExcludePatterns []string
 		IncludePatterns []string
 		RootCAs         int
-		*SecAlias
+		*ConfigAlias
 	}{
-		ExcludeFiles:    regexCollectionToStringCollection(c.ExcludeFiles),
-		ExcludePatterns: regexCollectionToStringCollection(c.ExcludePatterns),
-		IncludePatterns: regexCollectionToStringCollection(c.IncludePatterns),
+		ExcludeFiles:    regexpArrToStringArr(c.ExcludeFiles),
+		ExcludePatterns: regexpArrToStringArr(c.ExcludePatterns),
+		IncludePatterns: regexpArrToStringArr(c.IncludePatterns),
 		RootCAs:         sizeOfCertPool(c.RootCAs),
-		SecAlias:        (*SecAlias)(c),
+		ConfigAlias:     (*ConfigAlias)(c),
 	}, "", "\t")
 	if err != nil {
 		fmt.Println(err)
