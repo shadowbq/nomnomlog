@@ -221,8 +221,18 @@ exclude_files:
     - .bz2
     - .gz
 ```
+### Line pattern matching 
 
-### Including lines matching a pattern
+`nomnomlog` includes logic to have both inclusion and exclusion patterns for syslog forwarding. 
+
+#### Order of Operations for Regular Expression line Pattern matching
+
+Filter order to collect and send line data is:
+
+`If line matches ((include_patterns and does not match exclude patterns) or does not match exclude_patterns) then send line.`
+
+
+#### Including lines matching a pattern
 
 There may be certain times when you only want certain log messages to be sent.  These may be
 Alert level log lines that are mixed into a TRACE level log. You can filter out all other lines
@@ -235,7 +245,7 @@ include_patterns with an array or regexes:
      - alert
 ```
 
-### Excluding lines matching a pattern
+#### Excluding lines matching a pattern
 
 There may be certain log messages that you do not want to be sent.  These may be
 repetitive log lines that are "noise" that you might not be able to filter out
@@ -248,11 +258,6 @@ exclude_patterns with an array or regexes:
      - \d+ things
 ```
 
-### Order of Regular Expression Pattern matching
-
-Filter order to collect and send line data is:
-
-`If line matches ((include_patterns and does not match exclude patterns) or does not match exclude_patterns) then send line.`
 
 ### Multiple instances
 
