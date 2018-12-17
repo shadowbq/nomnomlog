@@ -148,6 +148,7 @@ func initConfigAndFlags() {
 
 	// bind env vars to config automatically
 	config.AutomaticEnv()
+
 }
 
 // Read in configuration from environment, flags, and specified or default config file.
@@ -434,12 +435,51 @@ func version() {
 	fmt.Fprintf(os.Stderr, "%s %s\n", envPrefix, Version)
 }
 
+func regexCollectionToStringCollection(regpattern []*regexp.Regexp) []string {
+	var rsc []string
+	for _, element := range regpattern {
+		rsc = append(rsc, element.String())
+	}
+	return rsc
+}
+
+func sizeOfCertPool(pool *x509.CertPool) (mysize int) {
+	// This should not be needed. LAW OF DEMETER, check nils
+	//
+	// defer func() {
+	//	// recover from panic if one occurs.. len(pool.DEMETER) panics because of no default value of pool.
+	//	if recover() != nil {
+	//		mysize = 0
+	//	}
+	// }()
+	if pool != nil {
+		mysize = len(pool.Subjects())
+	}
+
+	return mysize
+}
+
 func dumpConfig(c *Config) {
-	fmt.Fprintf(os.Stderr, "Current Configuration: \n")
-	jsonConfig, err := json.MarshalIndent(c, "", "\t")
+
+	fmt.Fprintf(os.Stderr, "Running Configuration: \n")
+	type SecAlias Config
+	jsonConfig, err := json.MarshalIndent(&struct {
+		ExcludeFiles    []string
+		ExcludePatterns []string
+		IncludePatterns []string
+		RootCAs         int
+		*SecAlias
+	}{
+		ExcludeFiles:    regexCollectionToStringCollection(c.ExcludeFiles),
+		ExcludePatterns: regexCollectionToStringCollection(c.ExcludePatterns),
+		IncludePatterns: regexCollectionToStringCollection(c.IncludePatterns),
+		RootCAs:         sizeOfCertPool(c.RootCAs),
+		SecAlias:        (*SecAlias)(c),
+	}, "", "\t")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	fmt.Println(string(jsonConfig))
+
 }

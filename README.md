@@ -284,19 +284,27 @@ Linux signals can be caught and handled by the daemon. As an example SIGHUP will
 2018-11-20 19:59:58 INFO  nomnomlog.go:50 Connecting to 127.0.0.1:5514 over udp
 2018-11-20 19:59:58 INFO  nomnomlog.go:197 Forwarding file: locallog.txt
 Handling signal: hangup
-Current Configuration:
+Running Configuration: 
 {
-	"ConnectTimeout": 30000000000,
+	"ExcludeFiles": [
+		"\\.DS_Store"
+	],
+	"ExcludePatterns": [
+		"don't log on me",
+		"do \\w+ on me"
+	],
+	"IncludePatterns": [
+		"log only me",
+		"log o.{1,2} me"
+	],
+	"ConnectTimeout": 5000000000,
+	"KeepReconnecting": true,
 	"WriteTimeout": 30000000000,
 	"NewFileCheckInterval": 10000000000,
-	"ExcludeFiles": null,
-	"ExcludePatterns": [
-		{}
-	],
 	"LogLevels": "\u003croot\u003e=INFO",
 	"DebugLogFile": "/dev/null",
-	"PidFile": "/home/shadowbq/nomnomlog.pid",
-	"TcpMaxLineLength": 99990,
+	"PidFile": "/var/run/nomnomlog.pid",
+	"TcpMaxLineLength": 99991,
 	"NoDetach": true,
 	"TCP": false,
 	"TLS": false,
@@ -307,20 +315,28 @@ Current Configuration:
 			"Tag": ""
 		},
 		{
-			"Path": "locallog.txt",
-			"Tag": "abc"
+			"Path": "/var/log/**/*.log",
+			"Tag": ""
+		},
+		{
+			"Path": "/var/log/nginx/nginx.log",
+			"Tag": "nginx"
+		},
+		{
+			"Path": "/var/log/httpd/access_log",
+			"Tag": "apache"
 		}
 	],
 	"Hostname": "octothorpe",
-	"Severity": 1,
-	"Facility": 0,
+	"Severity": 5,
+	"Facility": 1,
 	"Poll": false,
 	"Destination": {
-		"Host": "127.0.0.1",
-		"Port": 5514,
-		"Protocol": "udp"
+		"Host": "logs.papertrailapp.com",
+		"Port": 514,
+		"Protocol": "tls"
 	},
-	"RootCAs": null
+	"RootCAs": {}
 }
 ```
 
