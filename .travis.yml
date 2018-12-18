@@ -20,7 +20,7 @@ before_deploy:
 - go get -u github.com/kardianos/govendor
 - go get github.com/giantswarm/semver-bump
 - go get github.com/mitchellh/gox  
-- sudo apt-get install -y rpmbuild
+- sudo apt-get install -y rpm
 - PACKAGE_VERSION=${TRAVIS_TAG:1} make build
 deploy:
   provider: releases
