@@ -26,6 +26,8 @@ Use Benefits:
 Nomnomlog is a feature enhanced fork of the go-lang `remote_syslog2`. Nomnomlog differences include: different filter criteria prior to sending
 logs to the central server, man pages, enhanced developer support and testing, more chip architectures, IPC Signals, and general fixes.
 
+![mascot](https://shadowbq.github.io/nomnomlog/images/nomnomlog.jpg)
+
 ## Installing
 
 Prepackaged distributions are available on the [nomnomlog releases page][releases].
