@@ -468,11 +468,13 @@ Distro Release building requirements are checked in the `Makefile`
 
     $> go get github.com/giantswarm/semver-bump
 
-They may also include:
+Distro builds may also include:
 
-* ruby gem fpm
-* rpmbuild
+* ruby gem fpm (gem install -y fpm)
+* rpmbuild (apt install -y rpm)
 * etc..
+
+OSX for OSX build.
 
 ```shell
 $> make
@@ -513,6 +515,50 @@ To run tests manually:
 $> go test ./...
 # run all tests except the slower syslog reconnection tests
 $> go test -short ./...
+```
+
+### Pipeline CI Releases
+
+Travis-ci.org will push to github.com our successful builds when tagged with "v*"
+
+From the CLI, add, commit, push to master. Then tag (annotate), and push the tag. This will cause a release cycle for travis to push the build files (deb,rpm,etc.) to repo release pages.
+
+```shell
+$> git add .
+$> git commit -m 'updated to v1.0'
+[master ba27ddc] updated to v1.0
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+$> git push origin master
+...
+Total 0 (delta 0), reused 0 (delta 0)
+To https://github.com/shadowbq/nomnomlog
+   f747451..ba27ddc  master -> master
+
+$> git tag -a 'v1.0' -m 'major version release'
+$> git push origin tag v1.0
+...
+Counting objects: 9, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (9/9), done.
+Writing objects: 100% (9/9), 939 bytes | 234.00 KiB/s, done.
+Total 9 (delta 6), reused 0 (delta 0)
+remote: Resolving deltas: 100% (6/6), completed with 4 local objects.
+To https://github.com/shadowbq/nomnomlog
+ * [new tag]         v1.0 -> v1.0
+```
+
+At the bottom of the Travis log you should see
+
+```text
+Preparing deploy
+Logged in as shadowbq
+Deploying to repo: shadowbq/nomnomlog
+Current tag is: v1.0
+
+Deploying application
+Setting target_commitish to ba27ddc24d03a7e706f7af4a32a0b0773fdc018e
+Done. Your build exited with 0.
 ```
 
 ### Other Targets
