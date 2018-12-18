@@ -83,7 +83,7 @@ dependPackage:
 
 	@gem list | grep ronn >/dev/null 2>&1 || { \
 	  echo "\033[1;33mronn is not installed. See https://github.com/rtomayko/ronn\033[m"; \
-	  echo "Recommend: $$ gem install fpm"; \
+	  echo "Recommend: $$ gem install ronn"; \
 	  exit 1; \
 	}
 

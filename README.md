@@ -4,7 +4,7 @@
 [![license](https://img.shields.io/badge/License-MIT-1E90FF.svg?style=for-the-badge)](/LICENSE)
 [![GitHub Release Date](https://img.shields.io/github/release-date/shadowbq/nomnomlog.svg?style=for-the-badge)](https://github.com/shadowbq/nomnomlog/releases)
 [![Code](https://img.shields.io/badge/Language-Go-ff69b4.svg?style=for-the-badge)](/README.md)
-[![IO Page](https://img.shields.io/badge/GH--page-https://shadowbq.github.io/nomnomlog/-%23257a54.svg)](https://shadowbq.github.io/nomnomlog/)
+[![IO Page](https://img.shields.io/badge/GH--page-https://shadowbq.github.io/nomnomlog/-%23257a54.svg?style=for-the-badge)](https://shadowbq.github.io/nomnomlog/)
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/shadowbq/nomnomlog)](https://goreportcard.com/report/github.com/shadowbq/nomnomlog)
 [![Build Status](https://travis-ci.org/shadowbq/nomnomlog.svg?branch=master)](https://travis-ci.org/shadowbq/nomnomlog)
