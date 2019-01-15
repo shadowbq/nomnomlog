@@ -15,7 +15,7 @@ syslog daemon, so its configuration doesn't affect system-wide logging.
 
 Use Benefits:
 
-* Cross platform, multi-architecture single solution
+* Cross platform, os service ready, multi-architecture single solution
 * Collecting logs from servers & daemons which don't natively support syslog
 * Filtering for or eliminating specific log messages and / or files using regular expressions.
 * When reconfiguring the system logger is less convenient than a purpose-built daemon (e.g., automated app deployments)
