@@ -96,6 +96,8 @@ exists, and send with facility local0 to `a.example.com:514`:
 
 ## Auto-starting at boot
 
+***`nomnomlog` will daemonize by default.***
+
 Sample init files can be found [in the examples directory](examples/). You may be able to:
 
     $> cp examples/nomnomlog.init.d /etc/init.d/nomnomlog
@@ -109,9 +111,9 @@ or by creating a link manually:
 
     $> sudo ln -s /etc/init.d/nomnomlog /etc/rc3.d/S30nomnomlog
 
-nomnomlog will daemonize by default.
 
-With systemd it also very simple
+
+With `systemd` it is also very simple:
 
 ```
 admin@system1:/etc$ sudo service nomnomlog status
