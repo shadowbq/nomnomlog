@@ -113,7 +113,7 @@ or by creating a link manually:
 
 
 
-With `systemd` it is also very simple:
+With `systemd` it is also very simple with `init.d` defaults or drop in the `systemd.service` file :
 
 ```
 admin@system1:/etc$ sudo service nomnomlog status
