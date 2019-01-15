@@ -111,6 +111,24 @@ or by creating a link manually:
 
 nomnomlog will daemonize by default.
 
+With systemd it also very simple
+
+```
+admin@system1:/etc$ sudo service nomnomlog status
+● nomnomlog.service - LSB: Start and Stop
+   Loaded: loaded (/etc/init.d/nomnomlog; generated)
+   Active: active (running) since Mon 2019-01-14 19:49:25 EST; 4s ago
+     Docs: man:systemd-sysv-generator(8)
+  Process: 17024 ExecStart=/etc/init.d/nomnomlog start (code=exited, status=0/SUCCESS)
+    Tasks: 9 (limit: 4663)
+   CGroup: /system.slice/nomnomlog.service
+           └─17037 nomnomlog -c /etc/nomnomlog-config.yml --pid-file=/var/run/nomnomlog.pid
+
+Jan 14 19:49:25 system1 systemd[1]: Starting LSB: Start and Stop...
+Jan 14 19:49:25 system1 nomnomlog[17024]: Starting nomnomlog
+Jan 14 19:49:25 system1 systemd[1]: Started LSB: Start and Stop.
+```
+
 Additional information about init files (`init.d`, `supervisor`, `systemd` and `upstart`) are
 available [in the examples directory](examples/).
 
