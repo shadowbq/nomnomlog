@@ -5,6 +5,7 @@
 [![GitHub Release Date](https://img.shields.io/github/release-date/shadowbq/nomnomlog.svg?style=for-the-badge)](https://github.com/shadowbq/nomnomlog/releases)
 [![Code](https://img.shields.io/badge/Language-Go-ff69b4.svg?style=for-the-badge)](/README.md)
 [![IO Page](https://img.shields.io/badge/GH--page-https://shadowbq.github.io/nomnomlog/-%23257a54.svg?style=for-the-badge)](https://shadowbq.github.io/nomnomlog/)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fshadowbq%2Fnomnomlog.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fshadowbq%2Fnomnomlog?ref=badge_shield)
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/shadowbq/nomnomlog)](https://goreportcard.com/report/github.com/shadowbq/nomnomlog)
 [![Build Status](https://travis-ci.org/shadowbq/nomnomlog.svg?branch=master)](https://travis-ci.org/shadowbq/nomnomlog)
@@ -632,3 +633,7 @@ Once you've made your great commits:
 
 [fk]: http://help.github.com/forking/
 [is]: https://github.com/shadowbq/nomnomlog/issues/
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fshadowbq%2Fnomnomlog.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fshadowbq%2Fnomnomlog?ref=badge_large)
